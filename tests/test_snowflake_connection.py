@@ -10,6 +10,7 @@ def main():
         role=os.environ["SNOWFLAKE_ROLE"],
         warehouse=os.environ["SNOWFLAKE_WAREHOUSE"],
         database=os.environ["SNOWFLAKE_DATABASE"],
+        region=os.environ["SNOWFLAKE_REGION"],
     )
 
     cursor = conn.cursor()
@@ -20,7 +21,8 @@ def main():
                 CURRENT_USER(),
                 CURRENT_ROLE(),
                 CURRENT_WAREHOUSE(),
-                CURRENT_DATABASE()
+                CURRENT_DATABASE(),
+                CURRENT_REGION()
         """)
 
         result = cursor.fetchone()
@@ -30,6 +32,7 @@ def main():
         print(f"Role: {result[1]}")
         print(f"Warehouse: {result[2]}")
         print(f"Database: {result[3]}")
+        print(f"Region: {result[4]}")
 
     finally:
         cursor.close()
