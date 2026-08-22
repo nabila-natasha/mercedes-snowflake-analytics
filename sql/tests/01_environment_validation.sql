@@ -1,0 +1,101 @@
+/***************************************************************************************************
+Project :   Mercedes-Benz Vehicle Analytics
+Task    :   Snowflake Environment Validation
+Day     :   2
+
+Purpose :
+    Validate that the DEV Snowflake environment required by the project
+    exists and is correctly configured before downstream deployment.
+****************************************************************************************************/
+USE DATABASE MERCEDES_DEV;
+
+
+-- 1. VALIDATE REQUIRED SCHEMAS
+
+SELECT
+    'RAW' AS REQUIRED_SCHEMA,
+    COUNT(*) AS FOUND
+FROM INFORMATION_SCHEMA.SCHEMATA
+WHERE SCHEMA_NAME = 'RAW'
+
+UNION ALL
+
+SELECT
+    'SILVER' AS REQUIRED_SCHEMA,
+    COUNT(*) AS FOUND
+FROM INFORMATION_SCHEMA.SCHEMATA
+WHERE SCHEMA_NAME = 'SILVER'
+
+UNION ALL
+
+SELECT
+    'GOLD' AS REQUIRED_SCHEMA,
+    COUNT(*) AS FOUND
+FROM INFORMATION_SCHEMA.SCHEMATA
+WHERE SCHEMA_NAME = 'GOLD'
+
+UNION ALL
+
+SELECT
+    'AUDIT' AS REQUIRED_SCHEMA,
+    COUNT(*) AS FOUND
+FROM INFORMATION_SCHEMA.SCHEMATA
+WHERE SCHEMA_NAME = 'AUDIT';
+
+
+-- 2. VALIDATE CURRENT EXECUTION CONTEXT
+
+SELECT
+    CURRENT_USER()      AS CURRENT_USER,
+    CURRENT_ROLE()      AS CURRENT_ROLE,
+    CURRENT_DATABASE()  AS CURRENT_DATABASE,
+    CURRENT_WAREHOUSE() AS CURRENT_WAREHOUSE,
+    CURRENT_REGION()    AS CURRENT_REGION;
+
+
+-- 3. VALIDATE USER
+
+SELECT
+    'MERC_GITHUB_CI' AS EXPECTED_USER,
+    CURRENT_USER() AS ACTUAL_USER,
+    CASE
+        WHEN CURRENT_USER() = 'MERC_GITHUB_CI'
+        THEN 'PASS'
+        ELSE 'FAIL'
+    END AS STATUS;
+
+
+-- 4. VALIDATE CI/CD ROLE
+
+SELECT
+    'MERC_CI_CD' AS EXPECTED_ROLE,
+    CURRENT_ROLE() AS ACTUAL_ROLE,
+    CASE
+        WHEN CURRENT_ROLE() = 'MERC_CI_CD'
+        THEN 'PASS'
+        ELSE 'FAIL'
+    END AS STATUS;
+
+    
+-- 5. VALIDATE DATABASE
+
+SELECT
+    'MERCEDES_DEV' AS EXPECTED_DATABASE,
+    CURRENT_DATABASE() AS ACTUAL_DATABASE,
+    CASE
+        WHEN CURRENT_DATABASE() = 'MERCEDES_DEV'
+        THEN 'PASS'
+        ELSE 'FAIL'
+    END AS STATUS;
+
+
+-- 6. VALIDATE WAREHOUSE
+
+SELECT
+    'TRANSFORM_WH' AS EXPECTED_WAREHOUSE,
+    CURRENT_WAREHOUSE() AS ACTUAL_WAREHOUSE,
+    CASE
+        WHEN CURRENT_WAREHOUSE() = 'TRANSFORM_WH'
+        THEN 'PASS'
+        ELSE 'FAIL'
+    END AS STATUS;
