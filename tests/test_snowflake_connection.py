@@ -10,7 +10,6 @@ def main():
         role=os.environ["SNOWFLAKE_ROLE"],
         warehouse=os.environ["SNOWFLAKE_WAREHOUSE"],
         database=os.environ["SNOWFLAKE_DATABASE"],
-        region=os.environ["SNOWFLAKE_REGION"],
     )
 
     cursor = conn.cursor()
