@@ -1,20 +1,27 @@
 from pathlib import Path
+import argparse
 import pandas as pd
 
-# 1. DEFINE WHERE OUR RAW DATASETS ARE STORED
+# 1. DIRECTORIES
 
 DATA_DIR = Path("data/raw")
+FIXTURE_DIR = Path("tests/fixtures")
 
 
-# 2. DEFINE A FUNCTION TO PROFILE ONE CSV FILE
+# 2. DEFINE A FUNCTION TO PROFILE ONE DATASET
 
-def profile_dataset(file_name):
-    file_path = DATA_DIR / file_name
+def profile_dataset(file_path):
+
+    file_path = Path(file_path)
 
     print("\n" + "=" * 70)
-    print(f"PROFILE: {file_name}")
+    print(f"PROFILE: {file_path}")
     print("=" * 70)
 
+    if not file_path.exists():
+        raise FileNotFoundError(
+            f"Dataset not found: {file_path}"
+        )
 
     # LOAD CSV INTO pandas DATAFRAME
 
@@ -89,21 +96,59 @@ def profile_dataset(file_name):
 
 def main():
 
-    datasets = [
-        "mercedes.csv",
-        "train.csv"
-    ]
+    parser = argparse.ArgumentParser(
+        description="Profile Mercedes project datasets"
+    )
 
-    for dataset in datasets:
-        profile_dataset(dataset)
+    parser.add_argument(
+        "--real",
+        action="store_true",
+        help="Profile real project datasets"
+    )
+
+    parser.add_argument(
+        "--fixtures",
+        action="store_true",
+        help="Profile CI test fixture datasets"
+    )
+
+    args = parser.parse_args()
+
+
+    # REAL DATASETS
+
+    if args.real:
+
+        real_datasets = [
+            DATA_DIR / "mercedes.csv",
+            DATA_DIR / "train.csv"
+        ]
+
+        for dataset in real_datasets:
+            profile_dataset(dataset)
+
+
+    # CI FIXTURES
+
+    if args.fixtures:
+
+        fixture_datasets = [
+            FIXTURE_DIR / "mercedes_test.csv",
+            FIXTURE_DIR / "manufacturing_test.csv"
+        ]
+
+        for dataset in fixture_datasets:
+            profile_dataset(dataset)
+
+
+    # NO OPTION PROVIDED
+
+    if not args.real and not args.fixtures:
+
+        parser.print_help()
 
 
 # 4. PYTHON ENTRY POINY
 
 if __name__ == "__main__":
     main()
-
-
-
-
-
