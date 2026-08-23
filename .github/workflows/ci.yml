@@ -76,8 +76,8 @@ jobs:
         run: |
           python tests/deploy_snowflake_dev.py
 
-      # 8. Profile CSV Datasets
-      - name: Profile Datasets
+      # 8. Profile Test Datasets
+      - name: Profile test datasets
 
         run: |
-          python tests/profile_datasets.py
+          python tests/profile_datasets.py --fixtures
