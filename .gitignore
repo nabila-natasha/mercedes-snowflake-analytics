@@ -6,9 +6,12 @@ __pycache__/
 # C extensions
 *.so
 
-# Local data files
+# Raw datasets
 data/raw/*.csv
 data/raw/*.zip
+data/raw/*.json
+
+# Processed datasets
 data/processed/*.csv
 
 # Distribution / packaging
