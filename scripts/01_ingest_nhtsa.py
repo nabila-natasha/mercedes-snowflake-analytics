@@ -3,6 +3,7 @@ import argparse
 from pathlib import Path
 import requests
 
+
 # CONFIGURATION
 
 BASE_URL = (
