@@ -1,0 +1,4 @@
+model,year,price,transmission,mileage,fuelType,tax,mpg,engineSize
+A Class,2020,25000,Automatic,10000,Petrol,150,45.2,1.3
+C Class,2019,30000,Automatic,15000,Diesel,145,55,2
+E Class,2018,35000,Automatic,20000,Petrol,160,42.5,2
