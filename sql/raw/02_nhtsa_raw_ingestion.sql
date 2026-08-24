@@ -1,21 +1,49 @@
 /***************************************************************************************************
 Project : Mercedes-Benz Vehicle Analytics
-Task    : NHTSA RAW ingestion
+Task    : Create NHTSA RAW objects
 Day     : 3
-Purpose : Store NHTSA API response in RAW layer
+
+Purpose :
+    1. Create JSON file format
+    2. Create NHTSA internal stage
+    3. Create RAW table that preserves the complete NHTSA API response
+
+Important:
+    The actual PUT and COPY INTO operations are performed by
+    scripts/02_load_nhtsa_snowflake.py.
+
+    This SQL file creates the RAW infrastructure only.
 ***************************************************************************************************/
 
 USE ROLE MERC_DE;
 
 ALTER SESSION SET QUERY_TAG =
-'{"project":"mercedes","task":"nhtsa_raw_ingestion","day":"3"}';
+'{"project":"mercedes","task":"create_nhtsa_raw","day":"3"}';
 
 USE WAREHOUSE LOAD_WH;
 USE DATABASE MERCEDES_DEV;
 USE SCHEMA RAW;
 
 
---  1. CREATE RAW TABLE
+
+-- 1. CREATE JSON FILE FORMAT
+
+CREATE FILE FORMAT IF NOT EXISTS NHTSA_JSON_FORMAT
+    TYPE = JSON;
+
+
+-- 2. CREATE NHTSA INTERNAL STAGE
+
+CREATE STAGE IF NOT EXISTS NHTSA_STAGE
+    FILE_FORMAT = NHTSA_JSON_FORMAT;
+
+
+-- 3. RAW NHTSA TABLE
+-- One row represents one source JSON file.
+
+-- API_RESPONSE contains the COMPLETE JSON response.
+-- We deliberately keep it as VARIANT because RAW should
+-- preserve the original source structure.
 
 CREATE TABLE IF NOT EXISTS VEHICLE_SAFETY_RAW (
     SOURCE_FILE     VARCHAR,
@@ -23,74 +51,41 @@ CREATE TABLE IF NOT EXISTS VEHICLE_SAFETY_RAW (
     API_RESPONSE    VARIANT
 );
 
--- VALIDATE TABLE
+
+-- 4. VALIDATION
 
 DESC TABLE VEHICLE_SAFETY_RAW;
-
-
--- 2. CREATE JSON FILE FORMAT
-
-CREATE FILE FORMAT IF NOT EXISTS NHTSA_JSON_FORMAT
-    TYPE = JSON;
-
-
--- 3. CREATE STAGE
-
-CREATE STAGE IF NOT EXISTS NHTSA_STAGE
-    FILE_FORMAT = NHTSA_JSON_FORMAT;
-
--- 4. CHECK STAGE
 
 LIST @MERCEDES_DEV.RAW.NHTSA_STAGE;
 
 
--- 5. LOAD JSON INTO VEHICLE_SAFETY_RAW TABLE
-
-COPY INTO MERCEDES_DEV.RAW.VEHICLE_SAFETY_RAW
-(
-    SOURCE_FILE,
-    API_RESPONSE
-)
-FROM (
-    SELECT
-        METADATA$FILENAME,          -- return provenance filename
-        $1                          -- return API_RESPONSE (first value read)
-    FROM @MERCEDES_DEV.RAW.NHTSA_STAGE
-)
-FILE_FORMAT = (
-    FORMAT_NAME = MERCEDES_DEV.RAW.NHTSA_JSON_FORMAT
-)
-ON_ERROR = 'ABORT_STATEMENT';   -- stop COPY operation if encounter error loading the file
-
-
--- 6. VALIDATE VEHICLE SAFETY DATA
-
 SELECT 
-    COUNT(*) AS API_RESPONSES       -- 2 (2018.json and 2019.json)
+    COUNT(*) AS API_RESPONSES       -- 3 
 FROM MERCEDES_DEV.RAW.VEHICLE_SAFETY_RAW;
 
 
 SELECT
     SOURCE_FILE,
     INGESTED_AT,
-    API_RESPONSE
-FROM MERCEDES_DEV.RAW.VEHICLE_SAFETY_RAW
-LIMIT 5;
-
-
--- 7. INSPECT JSON RESPONSE
-
-SELECT 
-    API_RESPONSE:"Count"::NUMBER AS API_COUNT  -- 26, 28
+    API_RESPONSE,
+    TYPEOF(API_RESPONSE)    AS DATA_TYPE
 FROM MERCEDES_DEV.RAW.VEHICLE_SAFETY_RAW;
 
 
--- 8. FLATTEN RESULTS ARRAY 
+-- 5. INSPECT JSON RESPONSE AND FLATTEN RESULTS ARRAY
+
+SELECT 
+    API_RESPONSE:"make"::VARCHAR        AS MAKE,
+    API_RESPONSE:"model_year"::NUMBER   AS MODEL_YEAR,
+    API_RESPONSE:"record_count"::NUMBER AS RECORD_COUNT,
+    API_RESPONSE:"results"              AS RESULTS  
+FROM MERCEDES_DEV.RAW.VEHICLE_SAFETY_RAW;
+
 
 SELECT 
     value
 FROM MERCEDES_DEV.RAW.VEHICLE_SAFETY_RAW,
 LATERAL FLATTEN(
-    INPUT => API_RESPONSE:"Results"     -- Results is an array
+    INPUT => API_RESPONSE:"results"     -- results is an array
 )
 LIMIT 10;
