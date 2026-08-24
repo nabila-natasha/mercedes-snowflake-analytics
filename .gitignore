@@ -7,9 +7,15 @@ __pycache__/
 *.so
 
 # Raw datasets
-data/raw/*.csv
+data/raw/train.csv
 data/raw/*.zip
 data/raw/*.json
+
+# Keep the portfolio source dataset
+# data/raw/mercedes.csv is intentionally committed
+
+# NHTSA API generated files
+data/raw/nhtsa/*.json
 
 # Processed datasets
 data/processed/*.csv
