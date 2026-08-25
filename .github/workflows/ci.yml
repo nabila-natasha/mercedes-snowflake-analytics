@@ -159,7 +159,7 @@ jobs:
           sql/gold/01_create_dim_tables.sql
 
           python scripts/deploy_sql.py \
-          sql/gold/02_create_fact_tablessql
+          sql/gold/02_create_fact_tables.sql
 
           python scripts/deploy_sql.py \
           sql/gold/03_create_manufacturing_features.sql
