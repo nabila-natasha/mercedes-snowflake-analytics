@@ -46,6 +46,7 @@ def main():
         role=os.environ["SNOWFLAKE_ROLE"],
         warehouse=os.environ["SNOWFLAKE_WAREHOUSE"],
         database=os.environ["SNOWFLAKE_DATABASE"],
+        schema=os.environ.get("SNOWFLAKE_SCHEMA", "RAW"),
     )
 
     cursor = conn.cursor()
