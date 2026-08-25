@@ -143,9 +143,8 @@ jobs:
           python scripts/deploy_sql.py \
           sql/silver/01_build_silver_tables.sql
 
-      # 14. Build GOLD layer
+      # 14. BUILD GOLD 
       - name: Build Gold layer
-
         env:
           SNOWFLAKE_ACCOUNT: ${{ secrets.SNOWFLAKE_ACCOUNT }}
           SNOWFLAKE_USER: ${{ vars.SNOWFLAKE_USER }}
@@ -163,4 +162,17 @@ jobs:
 
           python scripts/deploy_sql.py \
           sql/gold/03_create_manufacturing_features.sql
+
+      # 15. VALIDATE GOLD
+      - name: Validate Gold layer
+        env:
+          SNOWFLAKE_ACCOUNT: ${{ secrets.SNOWFLAKE_ACCOUNT }}
+          SNOWFLAKE_USER: ${{ vars.SNOWFLAKE_USER }}
+          SNOWFLAKE_PASSWORD: ${{ secrets.SNOWFLAKE_PASSWORD }}
+          SNOWFLAKE_ROLE: ${{ vars.SNOWFLAKE_ROLE }}
+          SNOWFLAKE_WAREHOUSE: ${{ vars.SNOWFLAKE_WAREHOUSE }}
+          SNOWFLAKE_DATABASE: ${{ vars.SNOWFLAKE_DATABASE }}
+
+        run: |
+          python tests/test_gold_layer.py
 
