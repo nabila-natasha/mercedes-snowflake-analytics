@@ -27,10 +27,11 @@ BASE_URL = "https://api.nhtsa.gov"
 
 MAKE = "Mercedes-Benz"
 
-# For the smoke test, we deliberately use a small range.
-# Once this works, we can expand the range.
-MIN_YEAR = 2018
-MAX_YEAR = 2020
+# NHTSA YEAR RANGE
+# Set to None to process all model years years available
+# in the Mercedes source dataset (mercedes.csv).
+MIN_YEAR = None
+MAX_YEAR = None
 
 # Small delay between requests.
 REQUEST_DELAY = 0.2
@@ -117,13 +118,21 @@ def load_model_years():
         subset=["year"]
     )
 
-    # Restrict the current run to the selected
-    # smoke-test years.
-    combinations = combinations[
-        (combinations["year"] >= MIN_YEAR)
-        &
-        (combinations["year"] <= MAX_YEAR)
-    ]
+    # OPTIONAL YEAR FILTER
+    # Apply the lower year boundary only when specified.
+    if MIN_YEAR is not None:
+
+        combinations = combinations[
+            combinations["year"] >= MIN_YEAR
+        ]
+
+
+    # Apply the upper year boundary only when specified.
+    if MAX_YEAR is not None:
+
+        combinations = combinations[
+            combinations["year"] <= MAX_YEAR
+        ]
 
     # Create the NHTSA-compatible model name.
     combinations["nhtsa_model"] = (
