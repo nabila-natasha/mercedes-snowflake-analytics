@@ -8,13 +8,13 @@ def main():
     # 1. GET SQL FILE FROM COMMAND LINE
     # EXAMPLE:
     # python scripts/deploy_sql.py sql/silver/01_build_silver_tables.sql
+    # The SQL file is passed dynamically from GitHub Actions.
 
     if len(sys.argv) != 2:
         print(
             "Usage: python scripts/deploy_sql.py <sql_file>"
         )
         sys.exit(1)
-
 
     sql_file = Path(sys.argv[1])
 
@@ -35,9 +35,34 @@ def main():
     )
 
 
-    # 3. CONNECT TO SNOWFLAKE
-    # Credentials come from GitHub Actions Secrets.
-    # We DO NOT hard-code passwords in GitHub.
+    # 3. SPLIT SQL INTO INDIVIDUAL STATEMENTS
+    # We remove empty statements after splitting.
+    # This prevents Snowflake from receiving:
+    #     cursor.execute("")
+    # which causes:
+    #     SQL compilation error:
+    #     Empty SQL statement.
+
+    statements = []
+
+    for statement in sql.split(";"):
+
+        statement = statement.strip()
+
+        # Only keep statements that actually contain SQL.
+        if statement:
+            statements.append(statement)
+
+
+    print(
+        f"SQL statements found: "
+        f"{len(statements)}"
+    )
+
+
+    # 4. CONNECT TO SNOWFLAKE
+    # Credentials are supplied through GitHub Actions.
+    # They are NOT hard-coded in the repository.
 
     conn = snowflake.connector.connect(
         account=os.environ["SNOWFLAKE_ACCOUNT"],
@@ -51,38 +76,53 @@ def main():
 
     cursor = conn.cursor()
 
+    
+    # 5. EXECUTE EACH SQL STATEMENT
 
     try:
 
-        # 4. SPLIT SQL INTO INDIVIDUAL STATEMENTS
+        for i, statement in enumerate(
+            statements,
+            start=1
+        ):
 
-        statements = [
-            statement.strip()
-            for statement in sql.split(";")
-            if statement.strip()
-        ]
-
-
-        print(
-            f"SQL statements found: "
-            f"{len(statements)}"
-        )
-
-
-        # 5. EXECUTE EACH STATEMENT
-
-        for i, statement in enumerate(statements, start=1):
-
+            print()
             print(
-                f"Executing statement {i}..."
+                f"Executing statement "
+                f"{i}/{len(statements)}..."
             )
 
-            cursor.execute(statement)
+            try:
+
+                cursor.execute(statement)
+
+            except Exception as exc:
+
+                # Print the statement that caused the failure.
+                # This makes GitHub Actions debugging much easier.
+
+                print()
+                print("=" * 70)
+                print(
+                    f"SQL FAILED - STATEMENT {i}"
+                )
+                print("=" * 70)
+
+                print(statement)
+
+                print()
+                print(
+                    f"Error: "
+                    f"{type(exc).__name__}: {exc}"
+                )
+
+                raise
 
         print()
         print("=" * 70)
         print("SQL DEPLOYMENT SUCCESS")
         print("=" * 70)
+
 
     finally:
 
