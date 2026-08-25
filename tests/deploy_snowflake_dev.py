@@ -1,3 +1,13 @@
+"""
+Legacy Day 2 deployment utility.
+
+The current CI/CD workflow uses:
+    scripts/deploy_sql.py
+
+This file is retained as the original DEV deployment
+proof-of-concept created during Day 2.
+"""
+
 import os
 from pathlib import Path
 import snowflake.connector
