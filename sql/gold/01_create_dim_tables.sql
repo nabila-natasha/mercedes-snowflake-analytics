@@ -52,7 +52,7 @@ SELECT
     NHTSA_MODEL,
     UK_MODEL
 FROM MERCEDES_DEV.SILVER.NHTSA_VEHICLE_SAFETY
-QUALIFY ROW_NUMBER() OVER(
+QUALIFY ROW_NUMBER() OVER(  
     PARTITION BY VEHICLE_ID
     ORDER BY VEHICLE_ID
-) = 1;       -- keep only the first occurence for every unique vehicle
+) = 1;      
