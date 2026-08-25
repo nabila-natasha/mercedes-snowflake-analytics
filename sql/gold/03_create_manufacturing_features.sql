@@ -39,8 +39,8 @@ WHERE 'y' IS NOT NULL;
 
 SELECT
     COUNT(*)                AS RECORD_COUNT,
-    COUNT_IF('y' IS NULL)   AS NULL_TARGET_COUNT,
-    MIN('y')                AS MIN_TARGET,
-    MAX('y')                AS MAX_TARGET,
-    AVG('y')                AS AVG_TARGET
+    COUNT_IF("y" IS NULL)   AS NULL_TARGET_COUNT,
+    MIN("y")                AS MIN_TARGET,
+    MAX("y")                AS MAX_TARGET,
+    AVG("y")                AS AVG_TARGET
 FROM MERCEDES_DEV.GOLD.MANUFACTURING_FEATURES;  
