@@ -3,7 +3,7 @@ from pathlib import Path
 import snowflake.connector
 
 
-# PROJECT GONFIGURATION
+# PROJECT CONFIGURATION
 
 BASE_DIR = Path(__file__).resolve().parents[1]
 
@@ -59,7 +59,7 @@ def main():
 
     try:
 
-        # 3. UPLOAD JSON FILES TO INTERNAL STAGE
+        # 3. UPLOAD JSON FILES TO SNOWFLAKE INTERNAL STAGE
 
         for file in json_files:
 
