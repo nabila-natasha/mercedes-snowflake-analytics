@@ -160,9 +160,6 @@ jobs:
           python scripts/deploy_sql.py \
           sql/gold/02_create_fact_tables.sql
 
-          python scripts/deploy_sql.py \
-          sql/gold/03_create_manufacturing_features.sql
-
       # 15. VALIDATE GOLD
       - name: Validate Gold layer
         env:
