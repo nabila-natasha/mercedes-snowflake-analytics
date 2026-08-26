@@ -2,3 +2,5 @@ snowflake-connector-python
 requests
 pandas
 python-dotenv
+scikit-learn
+pyarrow
