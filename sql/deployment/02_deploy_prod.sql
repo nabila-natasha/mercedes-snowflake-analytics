@@ -15,20 +15,14 @@ Important:
     ingestion pipeline.
 ***************************************************************************************************/
 
+USE ROLE MERC_CI_CD;
+
 ALTER SESSION SET QUERY_TAG = '{"project":"mercedes","task":"prod_deployment","day":"6"}';
 
 USE DATABASE MERCEDES_PROD;
 
 
--- 1. CREATE REQUIRED SCHEMAS
-
-CREATE SCHEMA IF NOT EXISTS RAW;
-CREATE SCHEMA IF NOT EXISTS SILVER;
-CREATE SCHEMA IF NOT EXISTS GOLD;
-CREATE SCHEMA IF NOT EXISTS AUDIT;
-
-
--- 2. AUDIT TABLE
+-- 1. AUDIT TABLE
 -- Records every production deployment executed by CI/CD
 
 USE SCHEMA AUDIT;
@@ -42,7 +36,7 @@ CREATE TABLE IF NOT EXISTS CI_CD_DEPLOYMENT_LOG (
 );
 
 
--- 3. RECORD SUCCESSFUL DEPLOYMENT
+-- 2. RECORD SUCCESSFUL DEPLOYMENT
 
 INSERT INTO CI_CD_DEPLOYMENT_LOG (
     DEPLOYED_BY,
@@ -55,7 +49,7 @@ SELECT
     'SUCCESS';
 
 
--- 4. DEPLOYMENT VALIDATION
+-- 3. DEPLOYMENT VALIDATION
 
 SELECT 
     CURRENT_DATABASE()  AS DATABASE_NAME,
