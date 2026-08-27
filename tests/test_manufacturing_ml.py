@@ -266,19 +266,38 @@ def main():
                     AND DATASET = 'TEST'
                     THEN R2
                 END
-            ) AS BASELINE_R2
+            ) AS BASELINE_R2,
+
+            MAX(
+                CASE 
+                    WHEN MODEL_NAME = 'Random Forest'
+                    AND DATASET = 'TRAIN'
+                    THEN R2
+                END
+            ) - 
+            MAX(
+                CASE 
+                    WHEN MODEL_NAME = 'Random Forest'
+                    AND DATASET = 'TEST'
+                    THEN R2
+                END) AS  R2_GAP
 
         FROM MERCEDES_DEV.GOLD.MANUFACTURING_MODEL_METRICS;
         """)
 
-        rf_r2, baseline_r2 = cursor.fetchone()
+        rf_r2, baseline_r2, r2_gap = cursor.fetchone()
+
 
         # Convert Snowflake numeric values to Python floats
+
         if rf_r2 is not None:
             rf_r2 = float(rf_r2)
 
         if baseline_r2 is not None:
             baseline_r2 = float(baseline_r2)
+
+        if r2_gap is not None:
+            r2_gap = float(r2_gap)
 
 
         print("\n" + "-" * 90)
@@ -286,7 +305,7 @@ def main():
         print("-" * 90)
 
 
-        # Check Random Forest Test R2
+        # 1. Check Random Forest Test R2 Exists
 
         if rf_r2 is not None:
 
@@ -307,7 +326,7 @@ def main():
             overall_success = False
 
 
-        # Check Baseline Test R2
+        # 2. Check Baseline Test R2 Exists
 
         if baseline_r2 is not None:
 
@@ -328,7 +347,7 @@ def main():
             overall_success = False
 
 
-        # Compare the two models
+        # 3. Check Random Forests Beats Baseline
 
         if (
             rf_r2 is not None
@@ -349,7 +368,54 @@ def main():
 
                 overall_success = False
 
-        
+
+        # 4. Check Train/Test R2 Gap
+        # A large gap can indicate overfitting.
+        # Train R2 = 0.921
+        # Test R2  = 0.461
+        # Gap = 0.460
+        # We use 0.20 as a portfolio monitoring threshold.
+
+        MAX_R2_GAP = 0.20
+
+        if r2_gap is not None:
+
+            print_check(
+                "Train/Test R2 Gap",
+                f"{r2_gap:.3f}"
+                f"(threshold <= {MAX_R2_GAP:.2f})",
+                r2_gap <= MAX_R2_GAP
+            )
+
+            # IMPORTANT:
+            # Unlike previous version, this actually
+            # fails the CI test when the gap is too large.
+
+            if r2_gap > MAX_R2_GAP:
+
+                print(
+                    "  WARNING: Train/Test R2 gap exceeds "
+                    "the selected threshold."
+                )
+
+                print(
+                    "  This indicates potential overfitting "
+                    "and requires model review."
+                )
+
+                overall_success = False
+
+        else:
+
+            print_check(
+                "Train/Test R2 Gap",
+                "NOT FOUND",
+                False
+            )
+
+            overall_success = False
+
+
         # TEST 7 — CHECK PREDICTION RANGE
 
         cursor.execute("""
