@@ -365,9 +365,13 @@ def main():
 
 
     # 6. RANDOM FOREST MODEL
+    # Added max_depth=15 and min_samples_leaf=3.
+    # Goal: Improve generalization to unseen manufacturing configurations.
 
     model = RandomForestRegressor(
         n_estimators=200,
+        max_depth=15,           # prevents trees from becoming excessively deep
+        min_samples_leaf=3,     # prevents model from creating extreamely specific rules around tiny groups of records
         random_state=42,
         n_jobs=-1
     )
@@ -434,8 +438,8 @@ def main():
 
     # 8. OVERFITTING CHECK
     # Example:
-    # Train R2 = 0.95
-    # Test  R2 = 0.55
+    # Train R2 = 0.921
+    # Test  R2 = 0.461
     # Large gap -> model may be overfitting.
 
     r2_gap = (
