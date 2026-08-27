@@ -3,9 +3,12 @@ Project : Mercedes-Benz Vehicle Analytics
 Task    : DEV Deployment Test
 Day     : 2
 
-Purpose :
-    Demonstrate automated deployment from GitHub Actions into Snowflake DEV.
+Purpose : Demonstrate automated deployment from GitHub Actions into Snowflake DEV.
 ****************************************************************************************************/
+
+USE ROLE MERC_DE;
+
+ALTER SESSION SET QUERY_TAG = '{"project":"mercedes","task":"dev_deployment_test","day":"2"}';
 
 USE DATABASE MERCEDES_DEV;
 USE SCHEMA AUDIT;
