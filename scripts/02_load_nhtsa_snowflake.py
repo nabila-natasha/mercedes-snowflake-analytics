@@ -79,7 +79,49 @@ def main():
 
     try:
 
-        # 3. UPLOAD JSON FILES TO SNOWFLAKE INTERNAL STAGE
+        # 3. CREATE REQUIRED RAW INGESTION OBJECTS
+        #
+        # These objects are required before PUT can upload
+        # files into the Snowflake internal stage.
+        #
+        # CREATE IF NOT EXISTS makes the loader safe to rerun.
+    
+        print("\nCreating NHTSA RAW ingestion objects if needed...")
+    
+        cursor.execute(
+            f"""
+            CREATE FILE FORMAT IF NOT EXISTS
+                {NHTSA_JSON_FORMAT}
+            TYPE = JSON
+            """
+        )
+    
+        cursor.execute(
+            f"""
+            CREATE STAGE IF NOT EXISTS
+                {NHTSA_STAGE}
+            FILE_FORMAT = (
+                FORMAT_NAME = '{NHTSA_JSON_FORMAT}'
+            )
+            """
+        )
+    
+        cursor.execute(
+            f"""
+            CREATE TABLE IF NOT EXISTS
+                {NHTSA_RAW_TABLE}
+            (
+                SOURCE_FILE VARCHAR,
+                INGESTED_AT TIMESTAMP_NTZ DEFAULT CURRENT_TIMESTAMP(),
+                API_RESPONSE VARIANT
+            )
+            """
+        )
+    
+        print("NHTSA RAW ingestion objects ready.")
+        
+
+        # 4. UPLOAD JSON FILES TO SNOWFLAKE INTERNAL STAGE
 
         for file in json_files:
 
