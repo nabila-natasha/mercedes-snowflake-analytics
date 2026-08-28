@@ -68,7 +68,7 @@ def main():
         account=os.environ["SNOWFLAKE_ACCOUNT"],
         user=os.environ["SNOWFLAKE_USER"],
         password=os.environ["SNOWFLAKE_PASSWORD"],
-        warehouse="LOAD_WH",
+        warehouse=os.environ["SNOWFLAKE_WAREHOUSE"],
         database=SNOWFLAKE_DATABASE,
         schema=RAW_SCHEMA,
         role=SNOWFLAKE_ROLE
@@ -107,12 +107,12 @@ def main():
         # again.
 
         print(
-            "\nLoading staged JSON into "
-            "{NHTSA_RAW_TABLE}..."
+            f"\nLoading staged JSON into "
+            f"{NHTSA_RAW_TABLE}..."
         )
 
         cursor.execute(
-            """
+            f"""
             COPY INTO {NHTSA_RAW_TABLE}
             (
                 SOURCE_FILE,
@@ -151,7 +151,7 @@ def main():
         # 5. VALIDATE RAW TABLE
 
         cursor.execute(
-            """
+            f"""
             SELECT COUNT(*)
             FROM {NHTSA_RAW_TABLE}
             """
