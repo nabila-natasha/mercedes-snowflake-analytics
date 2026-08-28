@@ -21,14 +21,10 @@ jobs:
     deploy-production: 
 
         # GitHub Environment
-        # 'production' should be created in:
-        # Repository
-        # → Settings
-        # → Environments
-        # → production
+        # Repository → Settings → Environments → production
         # This allows production-specific protection rules.
-        
         environment: production
+        
         runs-on: ubuntu-latest
 
         steps:
@@ -50,20 +46,60 @@ jobs:
                 python -m pip install --upgrade pip
                 pip install -r ingestion/requirements.txt
 
-            # 4. DEPLOY PRODUCTION SQL
-            # SNOWFLAKE_DATABASE is deliberately set to
-            # MERCEDES_PROD here.
-            # This prevents the production deployment from
-            # accidentally targeting MERCEDES_DEV.
-            - name: Deploy Production
+            # 4. GENERATE NHTSA DATA
+            - name: Ingest NHTSA data
+              env:
+                SNOWFLAKE_DATABASE: MERCEDES_PROD
+              
+              run: |
+                python scripts/01_ingest_nhtsa.py
+
+            # 5. LOAD USED CAR DATA INTO SNOWFLAKE
+            - name: Load used car data
               env:
                 SNOWFLAKE_ACCOUNT: ${{ secrets.SNOWFLAKE_ACCOUNT }}
                 SNOWFLAKE_USER: ${{ vars.SNOWFLAKE_USER }}
                 SNOWFLAKE_PASSWORD: ${{ secrets.SNOWFLAKE_PASSWORD }}
+                SNOWFLAKE_ROLE: ${{ vars.SNOWFLAKE_ROLE }}
+                SNOWFLAKE_WAREHOUSE: LOAD_WH
+                SNOWFLAKE_DATABASE: MERCEDES_PROD
 
-                # Dedicated CI/CD SNOWFLAKE_ROLE
-                SNOWFLAKE_ROLE: MERC_CI_CD
+              run: |
+                python scripts/04_load_used_car_snowflake.py
 
+            # 6. LOAD MANUFACTURING DATA INTO SNOWFLAKE
+            - name: Load manufacturing data
+              env:
+                SNOWFLAKE_ACCOUNT: ${{ secrets.SNOWFLAKE_ACCOUNT }}
+                SNOWFLAKE_USER: ${{ vars.SNOWFLAKE_USER }}
+                SNOWFLAKE_PASSWORD: ${{ secrets.SNOWFLAKE_PASSWORD }}
+                SNOWFLAKE_ROLE: ${{ vars.SNOWFLAKE_ROLE }}
+                SNOWFLAKE_WAREHOUSE: LOAD_WH
+                SNOWFLAKE_DATABASE: MERCEDES_PROD
+
+              run: |
+                python scripts/05_load_manufacturing_snowflake.py
+
+            # 7. LOAD NHTSA INTO SNOWFLAKE
+            - name: Load NHTSA into Snowflake
+              env:
+                SNOWFLAKE_ACCOUNT: ${{ secrets.SNOWFLAKE_ACCOUNT }}
+                SNOWFLAKE_USER: ${{ vars.SNOWFLAKE_USER }}
+                SNOWFLAKE_PASSWORD: ${{ secrets.SNOWFLAKE_PASSWORD }}
+                SNOWFLAKE_ROLE: ${{ vars.SNOWFLAKE_ROLE }}
+                SNOWFLAKE_WAREHOUSE: LOAD_WH
+                SNOWFLAKE_DATABASE: MERCEDES_PROD
+
+              run: |
+                python scripts/02_load_nhtsa_snowflake.py
+
+            # 8. BUILD PRODUCTION ENVIRONMENT
+            - name: Build Production Environment
+              env:
+                SNOWFLAKE_ACCOUNT: ${{ secrets.SNOWFLAKE_ACCOUNT }}
+                SNOWFLAKE_USER: ${{ vars.SNOWFLAKE_USER }}
+                SNOWFLAKE_PASSWORD: ${{ secrets.SNOWFLAKE_PASSWORD }}
+                SNOWFLAKE_ROLE: ${{ vars.SNOWFLAKE_ROLE }}
                 SNOWFLAKE_WAREHOUSE: TRANSFORM_WH
                 SNOWFLAKE_DATABASE: MERCEDES_PROD
 
@@ -71,15 +107,13 @@ jobs:
                 python scripts/deploy_sql.py \
                     sql/deployment/02_deploy_prod.sql
 
-            # 5. VALIDATE PRODUCTION DEPLOYMENT
+            # 9. VALIDATE PRODUCTION
             - name: Validate Production
               env:
                 SNOWFLAKE_ACCOUNT: ${{ secrets.SNOWFLAKE_ACCOUNT }}
                 SNOWFLAKE_USER: ${{ vars.SNOWFLAKE_USER }}
                 SNOWFLAKE_PASSWORD: ${{ secrets.SNOWFLAKE_PASSWORD }}
-
-                SNOWFLAKE_ROLE: MERC_CI_CD
-                
+                SNOWFLAKE_ROLE: ${{ vars.SNOWFLAKE_ROLE }}
                 SNOWFLAKE_WAREHOUSE: TRANSFORM_WH
                 SNOWFLAKE_DATABASE: MERCEDES_PROD
 
