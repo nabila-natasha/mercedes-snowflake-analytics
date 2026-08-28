@@ -7,7 +7,7 @@ __pycache__/
 *.so
 
 # Raw datasets
-data/raw/train.csv
+!data/raw/train.csv
 data/raw/*.zip
 data/raw/*.json
 

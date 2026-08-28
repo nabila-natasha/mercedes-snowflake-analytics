@@ -120,7 +120,7 @@ def main():
     
         print("NHTSA RAW ingestion objects ready.")
         
-
+    
         # 4. UPLOAD JSON FILES TO SNOWFLAKE INTERNAL STAGE
 
         for file in json_files:
