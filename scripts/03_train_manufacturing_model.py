@@ -65,7 +65,7 @@ def get_connection():
         password=os.environ["SNOWFLAKE_PASSWORD"],
         role=os.environ["SNOWFLAKE_ROLE"],
         warehouse="TRANSFORM_WH",
-        database="MERCEDES_DEV",
+        database=os.environ["SNOWFLAKE_DATABASE"],
         schema="SILVER",
     )
 
