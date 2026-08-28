@@ -62,7 +62,7 @@ def main():
         account=os.environ["SNOWFLAKE_ACCOUNT"],
         user=os.environ["SNOWFLAKE_USER"],
         password=os.environ["SNOWFLAKE_PASSWORD"],
-        warehouse="LOAD_WH",
+        warehouse=os.environ["SNOWFLAKE_WAREHOUSE"],
         database=SNOWFLAKE_DATABASE,
         schema=RAW_SCHEMA,
         role=SNOWFLAKE_ROLE
