@@ -107,7 +107,20 @@ jobs:
                 python scripts/deploy_sql.py \
                     sql/deployment/02_deploy_prod.sql
 
-            # 9. VALIDATE PRODUCTION
+            # 9. TRAIN MANUFACTURING ML MODEL
+            - name: Train manufacturing ML model
+              env:
+                SNOWFLAKE_ACCOUNT: ${{ secrets.SNOWFLAKE_ACCOUNT }}
+                SNOWFLAKE_USER: ${{ vars.SNOWFLAKE_USER }}
+                SNOWFLAKE_PASSWORD: ${{ secrets.SNOWFLAKE_PASSWORD }}
+                SNOWFLAKE_ROLE: ${{ vars.SNOWFLAKE_ROLE }}
+                SNOWFLAKE_WAREHOUSE: TRANSFORM_WH
+                SNOWFLAKE_DATABASE: MERCEDES_PROD
+
+              run: |
+                python scripts/03_train_manufacturing_model.py
+            
+            # 10. VALIDATE PRODUCTION
             - name: Validate Production
               env:
                 SNOWFLAKE_ACCOUNT: ${{ secrets.SNOWFLAKE_ACCOUNT }}
