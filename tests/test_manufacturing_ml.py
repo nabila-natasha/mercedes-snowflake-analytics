@@ -184,7 +184,7 @@ def main():
         print_check(
             "Model metric rows",
             metric_rows,
-            metric_rows == 3
+            metric_rows == 4
         )
 
         print_check(
@@ -199,7 +199,7 @@ def main():
             invalid_error_metrics == 0
         )
 
-        if metric_rows != 3:
+        if metric_rows != 4:
             overall_success = False
 
         if invalid_r2 > 0:
