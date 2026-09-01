@@ -87,7 +87,7 @@ def load_data():
 
     try:
 
-        query = """
+        query = f"""
         SELECT *
         FROM {os.environ["SNOWFLAKE_DATABASE"]}.SILVER.MANUFACTURING_CLEAN
         """
