@@ -89,7 +89,7 @@ def load_data():
 
         query = """
         SELECT *
-        FROM MERCEDES_DEV.SILVER.MANUFACTURING_CLEAN
+        FROM {os.environ["SNOWFLAKE_DATABASE"]}.SILVER.MANUFACTURING_CLEAN
         """
 
         cursor = conn.cursor()
