@@ -408,7 +408,7 @@ def main():
     print("=" * 70)
 
 
-    baseline_metrics = evaluate_model(
+    baseline_train_metrics = evaluate_model(
         y_train,
         baseline_train_predictions,
         "Baseline - Train"
@@ -522,6 +522,14 @@ def main():
     metrics_df = pd.DataFrame([
         {
             "MODEL_NAME": "Naive Baseline",
+            "DATASET": "TRAIN",
+            "MAE": baseline_train_metrics["mae"],
+            "RMSE": baseline_train_metrics["rmse"],
+            "R2": baseline_train_metrics["r2"]
+        },
+        
+        {
+            "MODEL_NAME": "Naive Baseline",
             "DATASET": "TEST",
             "MAE": baseline_test_metrics["mae"],
             "RMSE": baseline_test_metrics["rmse"],
@@ -545,7 +553,9 @@ def main():
         }
     ]).reset_index(drop=True)
 
+    print(metrics_df)
 
+    
     # 12. WRITE ML RESULTS TO GOLD
 
     print()
