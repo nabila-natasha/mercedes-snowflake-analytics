@@ -23,9 +23,16 @@ Architecture:
             |
             +--> GOLD.MANUFACTURING_MODEL_METRICS
 
-This script intentionally uses a simple Random Forest model.
-The objective is to demonstrate an end-to-end data + ML platform,
-not to build a competition-grade model.
+Modeling approach:
+
+    1. Naive mean baseline
+    2. Hand-tuned Random Forest
+    3. RandomizedSearchCV hyperparameter tuning
+       using 5-fold cross-validation
+    4. Final evaluation on an unseen test set
+
+The objective is to demonstrate an end-to-end
+data + ML platform rather than competition-grade modeling.
 """
 
 import os
@@ -40,9 +47,12 @@ from sklearn.ensemble import RandomForestRegressor
 from sklearn.metrics import (
     mean_absolute_error,
     mean_squared_error,
-    r2_score
+    r2_score,
 )
-from sklearn.model_selection import train_test_split
+from sklearn.model_selection import (
+    train_test_split,
+    RandomizedSearchCV,
+)
 from sklearn.preprocessing import OneHotEncoder
 
 
@@ -52,11 +62,13 @@ def get_connection():
     """
     Create a connection to Snowflake.
 
-    The credential are supplied through environment variables.
-    In GitHub Actions these values come from GitHub Secrets/Variables.
+    Credentials are supplied through environment variables.
 
-    We read from the SILVER layer and write the ML outputs
-    into the GOLD layers.
+    GitHub Actions:
+        Values come from GitHub Secrets / Variables.
+
+    Local development:
+        Values are supplied through the local environment.
     """
 
     return snowflake.connector.connect(
@@ -76,13 +88,10 @@ def load_data():
     """
     Load the cleaned manufacturing dataset from SILVER.
 
-    Important architectural point:
-
-    We are NOT creating another copy of the entire 
-    manufacturing dataset in GOLD.
-
-    SILVER is our ML training source.
+    SILVER is the ML training source.
+    ML outputs are written to GOLD.
     """
+
     conn = get_connection()
 
     try:
@@ -95,6 +104,7 @@ def load_data():
         cursor = conn.cursor()
 
         try:
+
             cursor.execute(query)
 
             # Get column names returned by Snowflake
@@ -107,17 +117,17 @@ def load_data():
             rows = cursor.fetchall()
 
             # Convert Snowflake result into pandas DataFrame
-
             df = pd.DataFrame(
                 rows,
                 columns=columns
             )
 
-
         finally:
+
             cursor.close()
 
     finally:
+
         conn.close()
 
     return df
@@ -127,7 +137,7 @@ def load_data():
 
 def evaluate_model(y_true, y_pred, label):
     """
-    Calculate three standard regression metrics.
+    Calculate standard regression metrics.
 
     MAE:
         Average absolute prediction error.
@@ -136,11 +146,8 @@ def evaluate_model(y_true, y_pred, label):
         Penalizes larger errors more heavily.
 
     R2:
-        Measures how much variation in the target
-        is explained by the model.
-
-    The same function is used for both the baseline
-    and Random Forest so the comparison is fair.
+        Measures the proportion of target variation
+        explained by the model.
     """
 
     mae = mean_absolute_error(
@@ -159,7 +166,7 @@ def evaluate_model(y_true, y_pred, label):
     )
 
     print(
-        f"{label:>20} | "
+        f"{label:>30} | "
         f"MAE = {mae:7.3f} | "
         f"RMSE = {rmse:7.3f} | "
         f"R2 = {r2:6.3f}"
@@ -172,14 +179,13 @@ def evaluate_model(y_true, y_pred, label):
         "r2": r2
     }
 
-
 # 4. MAIN MACHINE LEARNING PIPELINE
 
 def main():
 
-    print("=" * 70)
+    print("=" * 80)
     print("MANUFACTURING TEST-TIME ML PIPELINE")
-    print("=" * 70)
+    print("=" * 80)
 
 
     # LOAD DATA
@@ -218,22 +224,20 @@ def main():
 
     # We retain it separately so that predictions can later
     # be linked back to the original record.
-
     row_ids = df["ID"]
 
     # y is the target variable:
     # manufacturing test time in seconds.
-
     y = df["y"]
 
     # Everything except ID and Y becomes a model feature.
-
     X = df.drop(
         columns=[
             "ID",
             "y"
         ]
     )
+
 
     print(
         f"Training rows: {len(X):,}"
@@ -249,20 +253,22 @@ def main():
     categorical_columns = (
         X
         .select_dtypes(
-            include=["object", "string"]    # keeps text/object data type columns
+            include=["object", "string"] # keeps text/object data type columns
         )
         .columns
         .tolist()
     )
 
+
     numerical_columns = (
         X
         .select_dtypes(
-            exclude=["object", "string"]    # keep non text/object (numbers) columns
+            exclude=["object", "string"]  # keep non text/object (numbers) columns
         )
         .columns
         .tolist()
     )
+
 
     print(
         f"Categorical features: "
@@ -339,21 +345,26 @@ def main():
     # 5. NAIVE BASELINE
     # The baseline simply predicts the average training Y
     # for every test record.
-
     # This gives us a reference point.
-    
     # If Random Forest cannot beat this baseline, the ML
     # model is not providing useful predictive value.
+
+    print()
+    print("=" * 80)
+    print("NAIVE BASELINE")
+    print("=" * 80)
 
 
     baseline = DummyRegressor(
         strategy="mean"
     )
 
+
     baseline.fit(
         X_train,
         y_train
     )
+
 
     baseline_train_predictions = (
         baseline.predict(X_train)
@@ -364,14 +375,33 @@ def main():
     )
 
 
-    # 6. RANDOM FOREST MODEL
+    baseline_train_metrics = evaluate_model(
+        y_train,
+        baseline_train_predictions,
+        "Naive Baseline - Train"
+    )
+
+
+    baseline_test_metrics = evaluate_model(
+        y_test,
+        baseline_test_predictions,
+        "Naive Baseline - Test"
+    )
+
+
+    # 6. HAND-TUNED RANDOM FOREST
     # Added max_depth=15 and min_samples_leaf=3.
     # Goal: Improve generalization to unseen manufacturing configurations.
+
+    print()
+    print("=" * 80)
+    print("HAND-TUNED RANDOM FOREST")
+    print("=" * 80)
 
     model = RandomForestRegressor(
         n_estimators=200,
         max_depth=15,           # prevents trees from becoming excessively deep
-        min_samples_leaf=3,     # prevents model from creating extreamely specific rules around tiny groups of records
+        min_samples_leaf=3,     # prevents the model from creating extremely specific rules around tiny groups of records
         random_state=42,
         n_jobs=-1
     )
@@ -381,110 +411,244 @@ def main():
         y_train
     )
 
+    
+    hand_tuned_model.fit(
+        X_train_processed,
+        y_train
+    )
 
     # Predictions on TRAINING data
-
-    train_predictions = (
-        model.predict(
+    hand_tuned_train_predictions = (
+        hand_tuned_model.predict(
             X_train_processed
         )
     )
 
-
     # Predictions on UNSEEN TEST data
-
-    test_predictions = (
-        model.predict(
+    hand_tuned_test_predictions = (
+        hand_tuned_model.predict(
             X_test_processed
         )
     )
-        
 
-    # 7. MODEL PERFORMANCE
+
+    hand_tuned_train_metrics = evaluate_model(
+        y_train,
+        hand_tuned_train_predictions,
+        "Hand-Tuned RF - Train"
+    )
+
+
+    hand_tuned_test_metrics = evaluate_model(
+        y_test,
+        hand_tuned_test_predictions,
+        "Hand-Tuned RF - Test"
+    )
+
+    
+    # 7. HYPERPARAMETER TUNING
 
     print()
-    print("=" * 70)
-    print("MODEL PERFORMANCE")
-    print("=" * 70)
+    print("=" * 80)
+    print("RANDOMIZED HYPERPARAMETER SEARCH")
+    print("=" * 80)
 
 
-    baseline_train_metrics = evaluate_model(
-        y_train,
-        baseline_train_predictions,
-        "Baseline - Train"
+    # Parameter distributions to explore.
+    #
+    # n_estimators:
+    #     Number of trees in the forest.
+    #
+    # max_depth:
+    #     Maximum depth of each decision tree.
+    #
+    # min_samples_leaf:
+    #     Minimum observations required in a leaf.
+    #
+    # max_features:
+    #     Number/proportion of features considered
+    #     when splitting a tree.
+
+    param_distributions = {
+
+        "n_estimators": [
+            100,
+            200,
+            300,
+            400
+        ],
+
+        "max_depth": [
+            5,
+            8,
+            10,
+            12,
+            15,
+            None
+        ],
+
+        "min_samples_leaf": [
+            1,
+            2,
+            3,
+            5,
+            8
+        ],
+
+        "max_features": [
+            "sqrt",
+            "log2",
+            0.5
+        ],
+    }
+
+
+    search = RandomizedSearchCV(
+        estimator=RandomForestRegressor(
+            random_state=42,
+            n_jobs=-1
+        ),
+        param_distributions=param_distributions,
+        n_iter=15,
+        cv=5,
+        scoring="neg_mean_absolute_error",
+        random_state=42,
+        n_jobs=-1,
+        verbose=1,
+    )
+
+    search.fit(
+        X_train_processed,
+        y_train
     )
 
 
-    baseline_test_metrics = evaluate_model(
-        y_test,
-        baseline_test_predictions,
-        "Baseline - Test"
-    )
+    # BEST PARAMETERS
+
+    print()
+    print("=" * 80)
+    print("BEST HYPERPARAMETERS")
+    print("=" * 80)
 
 
-    train_metrics = evaluate_model(
-        y_train,
-        train_predictions,
-        "Random Forest - Train"
-    )
-
-
-    test_metrics = evaluate_model(
-        y_test,
-        test_predictions,
-        "Random Forest - Test"
-    )
-
-
-    # 8. OVERFITTING CHECK
-    # Example:
-    # Train R2 = 0.921
-    # Test  R2 = 0.461
-    # Large gap -> model may be overfitting.
-
-    r2_gap = (
-        train_metrics["r2"]
-        - test_metrics["r2"]
+    print(
+        search.best_params_
     )
 
 
     print()
     print(
-        f"Train/Test R2 gap: "
-        f"{r2_gap:.3f}"
+        f"Best CV MAE: "
+        f"{-search.best_score_:.3f}"
     )
 
 
-    if r2_gap > 0.20:
+    # Best estimator selected by cross-validation
+
+    tuned_model = search.best_estimator_
+
+
+    # 8. FINAL TUNED MODEL PREDICTIONS
+
+    tuned_train_predictions = (
+        tuned_model.predict(
+            X_train_processed
+        )
+    )
+
+
+    tuned_test_predictions = (
+        tuned_model.predict(
+            X_test_processed
+        )
+    )
+
+
+    # 9. FINAL MODEL PERFORMANCE
+
+    print()
+    print("=" * 80)
+    print("FINAL MODEL PERFORMANCE")
+    print("=" * 80)
+
+
+    tuned_train_metrics = evaluate_model(
+        y_train,
+        tuned_train_predictions,
+        "Tuned RF - Train"
+    )
+
+
+    tuned_test_metrics = evaluate_model(
+        y_test,
+        tuned_test_predictions,
+        "Tuned RF - Test"
+    )
+
+
+    # 10. OVERFITTING CHECK
+    # Train R2 = 0.921
+    # Test  R2 = 0.461
+    # Large gap -> model may be overfitting.
+
+    hand_tuned_r2_gap = (
+        hand_tuned_train_metrics["r2"]
+        - hand_tuned_test_metrics["r2"]
+    )
+
+
+    tuned_r2_gap = (
+        tuned_train_metrics["r2"]
+        - tuned_test_metrics["r2"]
+    )
+
+
+    print()
+    print("=" * 80)
+    print("OVERFITTING CHECK")
+    print("=" * 80)
+
+
+    print(
+        f"Hand-Tuned RF Train/Test R2 gap: "
+        f"{hand_tuned_r2_gap:.3f}"
+    )
+
+
+    print(
+        f"Tuned RF Train/Test R2 gap: "
+        f"{tuned_r2_gap:.3f}"
+    )
+
+
+    if tuned_r2_gap > 0.20:
 
         print(
-            "WARNING: Large train/test R2 gap. "
-            "Potential overfitting."
+            "WARNING: Tuned model has a large "
+            "train/test R2 gap. Potential overfitting."
         )
 
     else:
 
         print(
-            "Train/test R2 gap is within "
-            "the selected monitoring threshold."
+            "Tuned model train/test R2 gap is "
+            "within the selected monitoring threshold."
         )
 
 
-    # 9. FEATURE IMPORTANCE
+    # 11. FEATURE IMPORTANCE
     # One-hot encoding changes the feature names.
-
     # get_feature_names_out() gives us the actual names
     # used by the trained model.
 
-    feature_names =(
+    feature_names = (
         preprocessor
         .get_feature_names_out()
     )
 
-
     importances = pd.DataFrame({
         "FEATURE": feature_names,
-        "IMPORTANCE": model.feature_importances_,
+        "IMPORTANCE": tuned_model.feature_importances_,
     }).reset_index(drop=True)
 
 
@@ -499,70 +663,107 @@ def main():
 
 
     print()
-    print("=" * 70)
-    print("TOP 10 FEATURES")
-    print("=" * 70)
-
-    print(importances.to_string(index=False))
+    print("=" * 80)
+    print("TOP 10 FEATURES - TUNED MODEL")
+    print("=" * 80)
 
 
-    # 10. CREATE PREDICTION DATASET
+    print(
+        importances.to_string(
+            index=False
+        )
+    )
+
+
+    # 12. CREATE PREDICTION DATASET
 
     predictions_df = pd.DataFrame({
 
-        "TEST_ID": ids_test.values,
-        "ACTUAL_TEST_TIME_SECONDS": y_test.values,
-        "PREDICTED_TEST_TIME_SECONDS": test_predictions,
-        "BASELINE_PREDICTED_TEST_TIME_SECONDS": baseline_test_predictions,
+        "TEST_ID":
+            ids_test.values,
+
+        "ACTUAL_TEST_TIME_SECONDS":
+            y_test.values,
+
+        "PREDICTED_TEST_TIME_SECONDS":
+            tuned_test_predictions,
+
+        "HAND_TUNED_PREDICTED_TEST_TIME_SECONDS":
+            hand_tuned_test_predictions,
+
+        "BASELINE_PREDICTED_TEST_TIME_SECONDS":
+            baseline_test_predictions,
+
     }).reset_index(drop=True)
 
 
-    # 11. CREATE MODEL METRICS DATASET
+    # 13. CREATE MODEL METRICS DATASET
 
     metrics_df = pd.DataFrame([
+
         {
             "MODEL_NAME": "Naive Baseline",
             "DATASET": "TRAIN",
             "MAE": baseline_train_metrics["mae"],
             "RMSE": baseline_train_metrics["rmse"],
-            "R2": baseline_train_metrics["r2"]
+            "R2": baseline_train_metrics["r2"],
         },
-        
         {
             "MODEL_NAME": "Naive Baseline",
             "DATASET": "TEST",
             "MAE": baseline_test_metrics["mae"],
-            "RMSE": baseline_test_metrics["rmse"],
-            "R2": baseline_test_metrics["r2"]
+            "RMSE": baseline_test_metrics["rmse"]
+            "R2": baseline_test_metrics["r2"],
         },
-
         {
-            "MODEL_NAME": "Random Forest",
+            "MODEL_NAME": "Random Forest - Hand-Tuned",
             "DATASET": "TRAIN",
-            "MAE": train_metrics["mae"],
-            "RMSE": train_metrics["rmse"],
-            "R2": train_metrics["r2"]
+            "MAE": hand_tuned_train_metrics["mae"],
+            "RMSE": hand_tuned_train_metrics["rmse"],
+            "R2": hand_tuned_train_metrics["r2"],
         },
-
         {
-            "MODEL_NAME":  "Random Forest",
+            "MODEL_NAME": "Random Forest - Hand-Tuned",
             "DATASET": "TEST",
-            "MAE": test_metrics["mae"],
-            "RMSE": test_metrics["rmse"],
-            "R2": test_metrics["r2"]
-        }
+            "MAE": hand_tuned_test_metrics["mae"],
+            "RMSE": hand_tuned_test_metrics["rmse"],
+            "R2": hand_tuned_test_metrics["r2"],
+        },
+        {
+            "MODEL_NAME": "Random Forest - Tuned",
+            "DATASET": "TRAIN",
+            "MAE": tuned_train_metrics["mae"],
+            "RMSE": tuned_train_metrics["rmse"],
+            "R2": tuned_train_metrics["r2"],
+        },
+        {
+            "MODEL_NAME": "Random Forest - Tuned",
+            "DATASET": "TEST",
+            "MAE": tuned_test_metrics["mae"],
+            "RMSE": tuned_test_metrics["rmse"],
+            "R2": tuned_test_metrics["r2"],
+        },
     ]).reset_index(drop=True)
 
-    print(metrics_df)
-
-    
-    # 12. WRITE ML RESULTS TO GOLD
 
     print()
-    print("=" * 70)
-    print("WRITING ML RESULTS TO GOLD")
-    print("=" * 70)
+    print("=" * 80)
+    print("MODEL METRICS")
+    print("=" * 80)
 
+    print(
+        metrics_df.to_string(
+            index=False
+        )
+    )
+
+
+    # 14. WRITE ML RESULTS TO GOLD
+
+    print()
+    print("=" * 80)
+    print("WRITING ML RESULTS TO GOLD")
+    print("=" * 80)
 
     conn = get_connection()
 
@@ -589,7 +790,7 @@ def main():
             auto_create_table=True,
             overwrite=True,
         )
-    
+
 
         # Model metrics
         write_pandas(
@@ -600,37 +801,36 @@ def main():
             auto_create_table=True,
             overwrite=True,
         )
-    
-    
+
+
     finally:
-    
         conn.close()
 
 
+    # 15. FINAL SUMMARY
+
     print()
-    print("=" * 70)
+    print("=" * 80)
     print("ML PIPELINE COMPLETED")
-    print("=" * 70)
+    print("=" * 80)
 
+
+    print("Best hyperparameters:")
+    print(search.best_params_)
+    print()
     print(
-        "Created:"
+        f"Best cross-validation MAE: "
+        f"{-search.best_score_:.3f}"
     )
 
-    print(
-        "  GOLD.MANUFACTURING_PREDICTIONS"
-    )
-
-    print(
-        "  GOLD.MANUFACTURING_FEATURE_IMPORTANCE"
-    )
-
-    print(
-        "  GOLD.MANUFACTURING_MODEL_METRICS"
-    )
+    print()
+    print("Created:")
+    print("  GOLD.MANUFACTURING_PREDICTIONS")
+    print("  GOLD.MANUFACTURING_FEATURE_IMPORTANCE")
+    print("  GOLD.MANUFACTURING_MODEL_METRICS")
 
 
-
-# 13. PYTHON ENTRY POINT
+# 16. PYTHON ENTRY POINT
 
 if __name__ == "__main__":
     main()
