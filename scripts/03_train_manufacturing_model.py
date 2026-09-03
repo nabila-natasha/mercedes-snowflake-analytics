@@ -581,9 +581,9 @@ def main():
 
 
     # 10. OVERFITTING CHECK
-    # Train R2 = 0.921
-    # Test  R2 = 0.461
-    # Large gap -> model may be overfitting.
+    # Compare train and test R2 to monitor potential overfitting.
+    # A large gap may indicate that the model is fitting the training
+    # data substantially better than unseen data.
 
     hand_tuned_r2_gap = (
         hand_tuned_train_metrics["r2"]
@@ -653,6 +653,7 @@ def main():
             ascending=False
         )
         .head(10)
+        .reset_index(drop=True)
     )
 
 
@@ -765,6 +766,9 @@ def main():
     try:
 
         # Prediction results
+        predictions_df = predictions_df.reset_index(drop=True)
+        predictions_df.index = pd.RangeIndex(start=0, stop=len(predictions_df))
+        
         write_pandas(
             conn,
             predictions_df,
@@ -776,6 +780,9 @@ def main():
 
 
         # Feature importance
+        importances = importances.reset_index(drop=True)
+        importances.index = pd.RangeIndex(start=0, stop=len(importances))
+        
         write_pandas(
             conn,
             importances,
@@ -787,6 +794,9 @@ def main():
 
 
         # Model metrics
+        metrics_df = metrics_df.reset_index(drop=True)
+        metrics_df.index = pd.RangeIndex(start=0, stop=len(metrics_df))
+        
         write_pandas(
             conn,
             metrics_df,
