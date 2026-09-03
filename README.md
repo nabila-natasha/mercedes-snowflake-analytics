@@ -189,9 +189,196 @@ Contains business-ready analytical structures consumed by downstream analytics a
 Contains validation and operational audit information used to support data quality and production monitoring.
 
 
+---
+
+## 7. Analytical Data Model
+
+The analytical layer follows a star-schema approach where measurable
+business events are represented by fact tables and descriptive
+attributes are represented by dimension tables.
+
+The model is consumed by Power BI to provide interactive analytical
+reporting.
+
+The Power BI data model is documented in:
+docs/data-model.md
 
 
+---
 
+## 8. Machine Learning
+
+The manufacturing machine learning pipeline predicts manufacturing test time.
+
+### Modelling approach
+
+The workflow consists of:
+
+1. Data preparation
+2. Train/test split
+3. Naive baseline
+4. Random Forest regression
+5. Hand-tuned model evaluation
+6. Hyperparameter tuning
+7. Final model evaluation
+8. Feature importance analysis
+9. Residual analysis
+10. Final model
+
+The final model is a tuned Random Forest regression model.
+The model achieved:
+
+Test MAE: 5.30 seconds
+Test R²: 0.59
+MAE improvement versus baseline: 47.7%
+
+More detail is available in:
+docs/ml-model.md
+
+
+---
+
+## 9. Power BI Analytics
+
+The project contains three main analytical dashboards.
+
+### Used Car Analytics
+ The dashboard provides:
+ - Total Cars
+ - Average Price
+ - Average Miles Per Gallon (MPG)
+ - Average Mileage
+ - Average Price by Year
+ - Cars by Model
+ - Price vs Mileage
+ - Average & Median Price by Fuel Type
+
+ ### Manufacturing ML Performance
+ The dashboard provides:
+ - Test MAE
+ - Test R²
+ - MAE Improvement vs Baseline
+ - Train/test R² Gap
+ - Actual vs Predicted Test Time
+ - Feature Importance
+ - Train/test model comparison
+
+### Vehicle Safety Analytics
+The dashboard provides:
+ - Vehicle configurations
+ - Electronic Stability Control adoption
+ - Complaints
+ - Recalls
+ - Investigations
+ - Crash Ratings by Model Year
+ - Recalls by Model Year
+ - Complaints vs Recalls
+ - Safety Technology Adoptions
+
+Dashboard screenshots are available under:
+docs/screenshots/
+
+--- 
+
+## 10. CI/CD
+
+GitHub Actions automates validation and production deployment.
+
+#### Continuous Integration
+The CI workflow validates code changes before they are considered production-ready.
+
+The workflow includes automated testing and Snowflake-related validation.
+
+#### Continuous Deployment
+The CD workflow automates the production deployment process, including:
+
+1. Source data ingestion
+2. Loading data into Snowflake
+3. Production database object deployment
+4. Transformation layer deployment
+5. Production validation
+
+Both CI and CD workflows completed successfully for the final project
+version.
+
+Detailed documentation:
+docs/validation.md
+
+
+--- 
+
+## 11. Reproducibility
+
+The project is designed so that the main data engineering workflow can
+be reproduced through the Python scripts, Snowflake SQL deployment
+scripts and GitHub Actions workflows.
+
+Credentials and secrets are not stored in the repository.
+
+Snowflake credentials required by GitHub Actions are supplied through
+GitHub repository secrets / environment configuration.
+
+
+--- 
+
+## 12. Data Governance and Security
+
+The project follows several basic production-oriented practices:
+- Credentials are not committed to Git
+- Snowflake access is managed through roles
+- Development and analytical responsibilities are separated
+- Production deployment is automated
+- Validation is executed as part of the deployment workflow
+- Raw and analytical data are separated into different schemas
+
+
+--- 
+
+## 13. Validation
+
+The final repository was validated through:
+- Automated CI tests
+- Snowflake connectivity validation
+- Production deployment
+- Production data validation
+- Power BI dashboard verification
+
+CI and CD execution evidence is documented in:
+docs/validation.md
+
+
+--- 
+
+## 14. Project Limitations
+
+This project is a portfolio implementation and therefore does not
+represent a production Mercedes-Benz enterprise environment.
+
+Limitations include:
+- Public / externally available datasets
+- Limited historical and operational context
+- No real-time manufacturing data stream
+- ML performance depends on the available training dataset
+- Power BI is used primarily for analytical reporting rather than
+enterprise deployment
+
+
+--- 
+
+## 15. Future Improvements
+
+Potential extensions include:
+- Real-time vehicle or manufacturing data ingestion
+- Streaming architecture using Azure Event Hubs or Kafka
+- Model monitoring
+- Automated ML retraining
+- Data quality monitoring and alerting
+- Snowflake cost and warehouse optimisation
+- Additional vehicle safety indicators
+- Model explainability using SHAP
+- Cloud-based orchestration
+
+---
 
 ## What this project demonstrates
 
