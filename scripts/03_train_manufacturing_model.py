@@ -398,19 +398,13 @@ def main():
     print("HAND-TUNED RANDOM FOREST")
     print("=" * 80)
 
-    model = RandomForestRegressor(
+    hand_tuned_model = RandomForestRegressor(
         n_estimators=200,
         max_depth=15,           # prevents trees from becoming excessively deep
         min_samples_leaf=3,     # prevents the model from creating extremely specific rules around tiny groups of records
         random_state=42,
         n_jobs=-1
     )
-
-    model.fit(
-        X_train_processed,
-        y_train
-    )
-
     
     hand_tuned_model.fit(
         X_train_processed,
@@ -712,7 +706,7 @@ def main():
             "MODEL_NAME": "Naive Baseline",
             "DATASET": "TEST",
             "MAE": baseline_test_metrics["mae"],
-            "RMSE": baseline_test_metrics["rmse"]
+            "RMSE": baseline_test_metrics["rmse"],
             "R2": baseline_test_metrics["r2"],
         },
         {
