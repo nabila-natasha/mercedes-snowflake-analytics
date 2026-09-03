@@ -1,12 +1,21 @@
-# mercedes-snowflake-analytics
+# Mercedes-Benz Vehicle Analytics Platform
 
-Data Sources
-------------
-1. UK Used Car Dataset
-2. Mercedes-Benz Greener Manufacturing Dataset
-3. NHTSA API
+An end-to-end data engineering, analytics and machine learning
+portfolio project built around Mercedes-Benz vehicle data.
 
-Raw datasets are excluded from this repository.
-See README for dataset source and ingestion instructions.
+The project demonstrates how raw automotive datasets can be transformed
+into production-ready analytical data products using Snowflake, Python,
+SQL, Power BI and GitHub Actions.
 
-"Recall data is sourced from NHTSA (US market) and is not scoped to the same physical vehicles as the UK resale dataset. It's included to demonstrate live incremental API ingestion and to give an illustrative (not literal) safety signal by model line. A production system would instead integrate DVSA's manufacturer-facing Recalls API, which requires organizational onboarding."
+## What this project demonstrates
+
+- Cloud data warehousing with Snowflake
+- Medallion architecture (RAW → SILVER → GOLD)
+- Automated ingestion pipelines
+- Snowflake Dynamic Tables
+- Star-schema analytical modelling
+- Machine learning for manufacturing test-time prediction
+- Hyperparameter tuning and model validation
+- Power BI analytics and reporting
+- Automated CI/CD using GitHub Actions
+- Production deployment and data-quality validation
