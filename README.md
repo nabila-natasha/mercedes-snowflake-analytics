@@ -146,6 +146,53 @@ Dashboards              Prediction
 
 ```
 
+The complete architecture is documented in:
+docs/architecture.md
+
+Architecture diagram:
+docs/screenshots/architecture.png
+
+
+---
+
+## 6. Data Architecture
+
+The Snowflake environment uses a medallion-style architecture:
+
+```text
+RAW
+ |
+ | ingestion / standardisation
+ v
+SILVER
+ |
+ | business transformation
+ v
+GOLD
+ |
+ +----> Power BI
+ |
+ +----> Analytical / ML workflows
+
+```
+
+### RAW
+Contains source data loaded into Snowflake with minimal transformation.
+
+### SILVER
+Contains cleaned, standardised and transformed data suitable for analytical processing.
+
+### GOLD
+Contains business-ready analytical structures consumed by downstream analytics and reporting.
+
+### AUDIT
+Contains validation and operational audit information used to support data quality and production monitoring.
+
+
+
+
+
+
 ## What this project demonstrates
 
 - Cloud data warehousing with Snowflake
