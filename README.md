@@ -138,10 +138,10 @@ Snowflake GOLD
         +--------------------+
         |                    |
         v                    v
-     Power BI          ML Analytics
+     Power BI          Manufacturing ML Analytics
         |                    |
         v                    v
-Safety & Manufacturing   Test-Time
+Used-Car &  Safety       Test-Time
 Dashboards              Prediction
 
 ```
