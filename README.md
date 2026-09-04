@@ -183,7 +183,7 @@ The complete architecture is documented in:
 `docs/architecture.md`
 
 Architecture diagram:
-`docs/screenshots/architecture.PNG`
+`docs/screenshots/architecture.png`
 
 ---
 
