@@ -104,6 +104,37 @@ One row represents one manufacturing observation.
 - `y` is the numeric target
 - X-columns contain categorical and numerical manufacturing features
 
+## Ingestion approach
+
+Used:
+- Snowflake internal stages
+- CSV file formats
+- COPY INTO
+- INFER_SCHEMA
+- USING TEMPLATE
+
+Problem:
+COPY INTO failed because PARSE_HEADER was used in the loading file format.
+
+Root cause:
+PARSE_HEADER is intended for schema inference / header matching,
+not ordinary COPY INTO loading.
+
+Resolution:
+Separated the file formats:
+- INFER_FORMAT → PARSE_HEADER = TRUE
+- LOAD_FORMAT  → SKIP_HEADER = 1*/
+
+## Data Quality Checks
+
+Performed:
+
+- Row count validation
+- Column validation
+- NULL checks
+- Sample record inspection
+- Schema validation
+
 ## Data Quality Decision
 
 The original anonymised feature names are preserved in RAW.
