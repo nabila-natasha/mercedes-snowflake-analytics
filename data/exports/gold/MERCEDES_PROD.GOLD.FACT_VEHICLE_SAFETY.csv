@@ -1,0 +1,263 @@
+VEHICLE_ID,MODEL_YEAR,UK_MODEL,NHTSA_MODEL,VEHICLE_DESCRIPTION,OVERALL_RATING,FRONT_CRASH_RATING,SIDE_CRASH_RATING,ROLLOVER_RATING,ROLLOVER_POSSIBILITY,COMPLAINTS_COUNT,RECALLS_COUNT,INVESTIGATION_COUNT,ELECTRONIC_STABILITY_CONTROL,FORWARD_COLLISION_WARNING,LANE_DEPARTURE_WARNING
+4714,2003," SL CLASS",SL-CLASS,2003 Mercedes-Benz SL-Class Convertible w/SAB,,,,,0,114,4,1,Standard,No,No
+4715,2003," SLK",SLK,2003 Mercedes-Benz SLK w/SAB,,,,,0,15,1,1,Standard,No,No
+1484,2005," C Class",C-CLASS,2005 Mercedes-Benz C-Class 4-DR. w/SAB,,,,,0,140,6,1,Standard,No,No
+1407,2005," C Class",C-CLASS,2005 Mercedes-Benz C-Class 2-DR w/SAB,,,,,0,140,6,1,Standard,No,No
+1485,2005," E Class",E-CLASS,2005 Mercedes-Benz E-Class 4-DR. w/SAB,,,,,0,532,6,3,Standard,No,No
+1415,2005," S Class",S-CLASS,2005 Mercedes-Benz S-Class 4-DR,,,,,0,26,1,0,Standard,No,No
+1416,2005," SL CLASS",SL-CLASS,2005 Mercedes-Benz SL-Class C-DR,,,,,0,29,2,0,Standard,No,No
+8618,2014," C Class",C-CLASS,2014 Mercedes-Benz C-CLASS 2 DR 4WD,,,,,0,284,6,1,Standard,Optional,No
+8617,2014," C Class",C-CLASS,2014 Mercedes-Benz C-CLASS 2 DR RWD,,,,,0,284,6,1,Standard,Optional,No
+8335,2014," C Class",C-CLASS,2014 Mercedes-Benz C-Class 4 DR AWD,5,4,5,4,0.105,284,6,1,Standard,Optional,No
+8334,2014," C Class",C-CLASS,2014 Mercedes-Benz C-Class 4 DR RWD,5,4,5,4,0.105,284,6,1,Standard,Optional,No
+8625,2014," CL Class",CL-CLASS,2014 Mercedes-Benz CL-CLASS 2 DR 4WD,,,,,0,0,0,0,Standard,No,No
+8624,2014," CL Class",CL-CLASS,2014 Mercedes-Benz CL-CLASS 2 DR RWD,,,,,0,0,0,0,Standard,No,No
+8614,2014," CLA Class",CLA-CLASS,2014 Mercedes-Benz CLA-CLASS 4 DR 4WD,,,,,0,193,6,2,Standard,Standard,Optional
+8613,2014," CLA Class",CLA-CLASS,2014 Mercedes-Benz CLA-CLASS 4 DR FWD,,,,,0,193,6,2,Standard,Standard,Optional
+8620,2014," CLS Class",CLS-CLASS,2014 Mercedes-Benz CLS-CLASS 2 DR 4WD,,,,,0,11,4,1,Standard,No,No
+8619,2014," CLS Class",CLS-CLASS,2014 Mercedes-Benz CLS-CLASS 2 DR RWD,,,,,0,11,4,1,Standard,No,No
+8634,2014," E Class",E-CLASS,2014 Mercedes-Benz E-CLASS SW 4WD,4,4,5,5,0.099,303,9,2,Standard,Standard,Optional
+8633,2014," E Class",E-CLASS,2014 Mercedes-Benz E-CLASS SW RWD,4,4,5,5,0.099,303,9,2,Standard,Standard,Optional
+8628,2014," E Class",E-CLASS,2014 Mercedes-Benz E-CLASS 2 DR 4WD,,,,,0,303,9,2,Standard,Standard,Optional
+8627,2014," E Class",E-CLASS,2014 Mercedes-Benz E-CLASS 2 DR RWD,,,,,0,303,9,2,Standard,Standard,Optional
+8337,2014," E Class",E-CLASS,2014 Mercedes-Benz E-Class 4 DR AWD,4,4,5,5,0.099,303,9,2,Standard,Standard,Optional
+8336,2014," E Class",E-CLASS,2014 Mercedes-Benz E-Class 4 DR RWD,4,4,5,5,0.099,303,9,2,Standard,Standard,Optional
+8641,2014," GL Class",GL-CLASS,2014 Mercedes-Benz GL-CLASS SUV 4WD,,,,,0,39,3,0,Standard,Standard,No
+8622,2014," S Class",S-CLASS,2014 Mercedes-Benz S-CLASS 4 DR 4WD,,,,,0,25,6,1,Standard,Standard,Optional
+8621,2014," S Class",S-CLASS,2014 Mercedes-Benz S-CLASS 4 DR RWD,,,,,0,25,6,1,Standard,Standard,Optional
+8626,2014," SL CLASS",SL-CLASS,2014 Mercedes-Benz SL-CLASS C RWD,,,,,0,4,4,1,Standard,No,No
+4416,2002," C Class",C-CLASS,2002 Mercedes-Benz C-Class w/SAB,,,,,0,190,3,0,Standard,No,No
+4410,2002," S Class",S-CLASS,2002 Mercedes-Benz S-Class 4DR. w/SAB,,,,,0,133,4,1,Standard,No,No
+4642,2002," SL CLASS",SL-CLASS,2002 Mercedes-Benz SL-Class Convertible w/SAB,,,,,0,13,0,1,Standard,No,No
+4417,2002," SLK",SLK,2002 Mercedes-Benz SLK w/SAB,,,,,0,53,2,1,Standard,No,No
+705,2011," C Class",C-CLASS,2011 Mercedes-Benz C-Class 4 DR AWD,4,3,5,4,0.105,516,6,2,Standard,No,No
+119,2011," C Class",C-CLASS,2011 Mercedes-Benz C-Class 4 DR RWD,4,3,5,4,0.105,516,6,2,Standard,No,No
+121,2011," CLS Class",CLS-CLASS,2011 Mercedes-Benz CLS-Class 4 DR RWD,,,,,0,7,3,1,Standard,No,No
+525,2011," E Class",E-CLASS,2011 Mercedes-Benz E-Class 4 DR AWD,,,,5,0.099,296,9,2,Standard,No,No
+524,2011," E Class",E-CLASS,2011 Mercedes-Benz E-Class 2 DR AWD,,,,,0,296,9,2,Standard,No,No
+124,2011," E Class",E-CLASS,2011 Mercedes-Benz E-Class 4 DR RWD,,,,5,0.099,296,9,2,Standard,No,No
+123,2011," E Class",E-CLASS,2011 Mercedes-Benz E-Class 2 DR RWD,,,,,0,296,9,2,Standard,No,No
+529,2011," R Class",R-CLASS,2011 Mercedes-Benz R-Class SUV AWD,,,,,0,18,5,1,Standard,No,No
+129,2011," R Class",R-CLASS,2011 Mercedes-Benz R-Class SUV RWD,,,,,0,18,5,1,Standard,No,No
+130,2011," S Class",S-CLASS,2011 Mercedes-Benz S-Class 4 DR RWD,,,,,0,19,2,0,Standard,No,No
+530,2011," SL CLASS",SL-CLASS,2011 Mercedes-Benz Sl-Class C AWD,,,,,0,3,0,0,Standard,No,No
+131,2011," SL CLASS",SL-CLASS,2011 Mercedes-Benz Sl-Class C RWD,,,,,0,3,0,0,Standard,No,No
+10775,2016," C Class",C-CLASS,2016 Mercedes-Benz C-Class 4 DR RWD,5,4,5,4,0.11,315,14,3,Standard,Optional,Optional
+10774,2016," C Class",C-CLASS,2016 Mercedes-Benz C-Class 4 DR 4WD,5,4,5,4,0.11,315,14,3,Standard,Optional,Optional
+10733,2016," CLA Class",CLA-CLASS,2016 Mercedes-Benz Cla-Class 4 DR 4WD,,,,,0,66,9,2,Standard,Optional,Optional
+10780,2016," CLS Class",CLS-CLASS,2016 Mercedes-Benz Cls-Class 4 DR RWD,,,,,0,0,1,1,Standard,Optional,Optional
+10779,2016," CLS Class",CLS-CLASS,2016 Mercedes-Benz Cls-Class 4 DR 4WD,,,,,0,0,1,1,Standard,Optional,Optional
+10782,2016," E Class",E-CLASS,2016 Mercedes-Benz E-Class 2 DR 4WD,,,,,0,89,9,1,Standard,Optional,Optional
+10781,2016," E Class",E-CLASS,2016 Mercedes-Benz E-Class 2 DR RWD,,,,,0,89,9,1,Standard,Optional,Optional
+10210,2016," E Class",E-CLASS,2016 Mercedes-Benz E-CLASS SW RWD,4,4,5,5,0.099,89,9,1,Standard,Optional,Optional
+10209,2016," E Class",E-CLASS,2016 Mercedes-Benz E-CLASS SW 4WD,4,4,5,5,0.099,89,9,1,Standard,Optional,Optional
+10208,2016," E Class",E-CLASS,2016 Mercedes-Benz E-Class 4 DR RWD,4,4,5,5,0.099,89,9,1,Standard,Optional,Optional
+10207,2016," E Class",E-CLASS,2016 Mercedes-Benz E-Class 4 DR 4WD,4,4,5,5,0.099,89,9,1,Standard,Optional,Optional
+10785,2016," G Class",G-CLASS,2016 Mercedes-Benz G-Class SUV AWD,,,,,0,3,4,0,Standard,No,No
+10793,2016," GL Class",GL-CLASS,2016 Mercedes-Benz GL-Class SUV 4WD,,,,,0,20,7,0,Standard,Optional,Optional
+10790,2016," GLA Class",GLA-CLASS,2016 Mercedes-Benz GLA-Class 4 DR FWD,,,,,0,51,4,2,Standard,Optional,Optional
+10789,2016," GLA Class",GLA-CLASS,2016 Mercedes-Benz GLA-Class 4 DR 4WD,,,,,0,51,4,2,Standard,Optional,Optional
+10792,2016," GLC Class",GLC-CLASS,2016 Mercedes-Benz GLC-Class 4 DR RWD,,,,,0,139,12,2,Standard,Optional,Optional
+10791,2016," GLC Class",GLC-CLASS,2016 Mercedes-Benz GLC-Class 4 DR 4WD,,,,,0,139,12,2,Standard,Optional,Optional
+10212,2016," GLE Class",GLE-CLASS,2016 Mercedes-Benz GLE-Class SUV 4WD,,,,4,0.179,104,18,2,Standard,Optional,Optional
+10211,2016," GLE Class",GLE-CLASS,2016 Mercedes-Benz GLE-Class SUV RWD,,,,4,0.198,104,18,2,Standard,Optional,Optional
+10787,2016," S Class",S-CLASS,2016 Mercedes-Benz S-Class 4 DR RWD,,,,,0,29,7,2,Standard,Optional,Optional
+10786,2016," S Class",S-CLASS,2016 Mercedes-Benz S-Class 4 DR 4WD,,,,,0,29,7,2,Standard,Optional,Optional
+10801,2016," SL CLASS",SL-CLASS,2016 Mercedes-Benz SL-Class C RWD,,,,,0,1,1,1,Standard,Optional,Optional
+1204,2004," C Class",C-CLASS,2004 Mercedes-Benz C-Class 4-DR. w/SAB,,,,,0,77,4,0,Standard,No,No
+1212,2004," SLK",SLK,2004 Mercedes-Benz SLK w/SAB,,,,,0,7,1,1,Standard,No,No
+6373,2012," B Class",B-CLASS,2012 Mercedes-Benz B-Class 4 DR RWD,,,,,0,0,0,0,Standard,No,No
+6739,2012," C Class",C-CLASS,2012 Mercedes-Benz C-Class 4 DR AWD,,,,4,0.105,585,7,1,Standard,No,No
+6363,2012," C Class",C-CLASS,2012 Mercedes-Benz C-Class 4 DR RWD,,,,4,0.105,585,7,1,Standard,No,No
+6741,2012," CLS Class",CLS-CLASS,2012 Mercedes-Benz CLS-Class 4 DR AWD,,,,,0,24,3,1,Standard,Optional,Optional
+6364,2012," CLS Class",CLS-CLASS,2012 Mercedes-Benz CLS-Class 4 DR RWD,,,,,0,24,3,1,Standard,Optional,Optional
+6743,2012," E Class",E-CLASS,2012 Mercedes-Benz E-Class 4 DR AWD,,,,5,0.099,233,7,2,Standard,Optional,Optional
+6742,2012," E Class",E-CLASS,2012 Mercedes-Benz E-Class 2 DR AWD,,,,,0,233,7,2,Standard,Optional,Optional
+6370,2012," E Class",E-CLASS,2012 Mercedes-Benz E-Class 4 DR RWD,,,,5,0.099,233,7,2,Standard,Optional,Optional
+6368,2012," E Class",E-CLASS,2012 Mercedes-Benz E-Class 2 DR RWD,,,,,0,233,7,2,Standard,Optional,Optional
+6377,2012," G Class",G-CLASS,2012 Mercedes-Benz G-Class SUV AWD,,,,,0,0,0,0,Standard,No,No
+6748,2012," S Class",S-CLASS,2012 Mercedes-Benz S-Class 4 DR AWD,,,,,0,14,3,0,Standard,Optional,Optional
+6365,2012," S Class",S-CLASS,2012 Mercedes-Benz S-Class 4 DR RWD,,,,,0,14,3,0,Standard,Optional,Optional
+2162,2007," C Class",C-CLASS,2007 Mercedes-Benz C-Class 4-DR. w/SAB,,,,,0,280,6,1,Standard,No,No
+2238,2007," CLS Class",CLS-CLASS,2007 Mercedes-Benz CLS 4-DR. w/SAB,,,,,0,40,4,0,Standard,No,No
+2354,2007," E Class",E-CLASS,2007 Mercedes-Benz E-Class Wagon 4-DR. w/SAB,,,,,0,435,7,1,Standard,No,No
+2163,2007," E Class",E-CLASS,2007 Mercedes-Benz E-Class 4-DR. w/SAB,,,,,0,435,7,1,Standard,No,No
+2245,2007," GL Class",GL-CLASS,2007 Mercedes-Benz GL-Class 4-DR w/SAB,,,,,0,123,4,0,Standard,No,No
+2242,2007," R Class",R-CLASS,2007 Mercedes-Benz R-Class 4-DR. w/SAB,,,,,0,67,5,0,Standard,No,No
+2240,2007," SL CLASS",SL-CLASS,2007 Mercedes-Benz SL-Class Convertible w/SAB,,,,,0,21,2,0,Standard,No,No
+5840,2010," C Class",C-CLASS,2010 Mercedes-Benz C-Class 4-DR. w/SAB,,,,4,0.105,476,7,2,Standard,No,No
+5850,2010," E Class",E-CLASS,2010 Mercedes-Benz E-Class 2-DR. w/SAB,,,,,0,256,6,2,Standard,Optional,Optional
+5843,2010," E Class",E-CLASS,2010 Mercedes-Benz E-Class 4-DR. w/SAB,,,,5,0.099,256,6,2,Standard,Optional,Optional
+5847,2010," S Class",S-CLASS,2010 Mercedes-Benz S-Class 4-DR w/SAB,,,,,0,33,0,0,Standard,Optional,Optional
+5848,2010," SL CLASS",SL-CLASS,2010 Mercedes-Benz SL-Class Convertible w/SAB,,,,,0,0,0,0,Standard,No,No
+7750,2013," C Class",C-CLASS,2013 Mercedes-Benz C-Class 2 DR 4WD,,,,,0,571,7,1,Standard,Optional,Optional
+7738,2013," C Class",C-CLASS,2013 Mercedes-Benz C-Class 2 DR RWD,,,,,0,571,7,1,Standard,Optional,Optional
+7244,2013," C Class",C-CLASS,2013 Mercedes-Benz C-Class 4 DR AWD,5,4,5,4,0.105,571,7,1,Standard,Optional,Optional
+7243,2013," C Class",C-CLASS,2013 Mercedes-Benz C-Class 4 DR RWD,5,4,5,4,0.105,571,7,1,Standard,Optional,Optional
+7679,2013," CL Class",CL-CLASS,2013 Mercedes-Benz CL-Class 2 DR 4WD,,,,,0,1,0,0,Standard,Optional,Optional
+7463,2013," CL Class",CL-CLASS,2013 Mercedes-Benz CL-Class 2 DR RWD,,,,,0,1,0,0,Standard,Optional,Optional
+7680,2013," CLS Class",CLS-CLASS,2013 Mercedes-Benz CLS-Class 2 DR 4WD,,,,,0,4,3,1,Standard,Optional,Optional
+7464,2013," CLS Class",CLS-CLASS,2013 Mercedes-Benz CLS-Class 2 DR RWD,,,,,0,4,3,1,Standard,Optional,Optional
+7751,2013," E Class",E-CLASS,2013 Mercedes-Benz E-Class 2 DR 4WD,,,,,0,185,7,2,Standard,Optional,Optional
+7739,2013," E Class",E-CLASS,2013 Mercedes-Benz E-Class 2 DR RWD,,,,,0,185,7,2,Standard,Optional,Optional
+7246,2013," E Class",E-CLASS,2013 Mercedes-Benz E-Class 4 DR AWD,,,,5,0.099,185,7,2,Standard,Optional,Optional
+7245,2013," E Class",E-CLASS,2013 Mercedes-Benz E-Class 4 DR RWD,,,,5,0.099,185,7,2,Standard,Optional,Optional
+7467,2013," G Class",G-CLASS,2013 Mercedes-Benz G-Class SUV AWD,,,,,0,5,3,0,Standard,No,No
+7468,2013," GL Class",GL-CLASS,2013 Mercedes-Benz GL-Class SUV 4WD,,,,,0,52,3,0,Standard,Optional,Optional
+7684,2013," S Class",S-CLASS,2013 Mercedes-Benz S-Class 4 DR 4WD,,,,,0,9,0,0,Standard,Optional,Optional
+7471,2013," S Class",S-CLASS,2013 Mercedes-Benz S-Class 4 DR RWD,,,,,0,9,0,0,Standard,Optional,Optional
+2774,2008," C Class",C-CLASS,2008 Mercedes-Benz C-Class 4-DR. w/SAB,,,,4,0.105,836,9,3,Standard,No,No
+2473,2008," CL Class",CL-CLASS,2008 Mercedes-Benz CL-Class 2-DR w/SAB,,,,,0,10,3,1,Standard,Optional,No
+2443,2008," E Class",E-CLASS,2008 Mercedes-Benz E-Class 4-DR. w/SAB,,,,5,0.101,226,6,1,Standard,Optional,No
+2442,2008," E Class",E-CLASS,2008 Mercedes-Benz E-Class Wagon 4-DR. w/SAB,,,,5,0.101,226,6,1,Standard,Optional,No
+12471,2018," C Class",C-CLASS,2018 Mercedes-Benz C-Class 4 DR 4WD,5,4,5,4,0.11,127,19,3,Standard,Optional,Optional
+12470,2018," C Class",C-CLASS,2018 Mercedes-Benz C-Class 4 DR RWD,5,4,5,4,0.11,127,19,3,Standard,Optional,Optional
+12469,2018," C Class",C-CLASS,2018 Mercedes-Benz C-Class 2 DR RWD,,,,,0,127,19,3,Standard,Optional,Optional
+12468,2018," C Class",C-CLASS,2018 Mercedes-Benz C-Class 2 DR 4WD,,,,,0,127,19,3,Standard,Optional,Optional
+12467,2018," C Class",C-CLASS,2018 Mercedes-Benz C-Class C RWD,,,,,0,127,19,3,Standard,Optional,Optional
+12466,2018," C Class",C-CLASS,2018 Mercedes-Benz C-Class C 4WD,,,,,0,127,19,3,Standard,Optional,Optional
+12489,2018," CLA Class",CLA-CLASS,2018 Mercedes-Benz CLA-Class 4 DR 4WD,,,,,0,45,10,2,Standard,Optional,Optional
+12488,2018," CLA Class",CLA-CLASS,2018 Mercedes-Benz CLA-Class 4 DR FWD,,,,,0,45,10,2,Standard,Optional,Optional
+12481,2018," CLS Class",CLS-CLASS,2018 Mercedes-Benz CLS-Class 4 DR 4WD,,,,,0,0,1,1,Standard,Optional,Optional
+12480,2018," CLS Class",CLS-CLASS,2018 Mercedes-Benz CLS-Class 4 DR RWD,,,,,0,0,1,1,Standard,Optional,Optional
+12479,2018," E Class",E-CLASS,2018 Mercedes-Benz E-Class C RWD,,,,,0,66,18,0,Standard,Standard,Optional
+12478,2018," E Class",E-CLASS,2018 Mercedes-Benz E-Class C 4WD,,,,,0,66,18,0,Standard,Standard,Optional
+12477,2018," E Class",E-CLASS,2018 Mercedes-Benz E-Class 4 DR 4WD,5,5,5,5,0.097,66,18,0,Standard,Standard,Optional
+12476,2018," E Class",E-CLASS,2018 Mercedes-Benz E-Class 4 DR RWD,5,5,5,5,0.097,66,18,0,Standard,Standard,Optional
+12475,2018," E Class",E-CLASS,2018 Mercedes-Benz E-CLASS SW 4WD,5,5,5,5,0.097,66,18,0,Standard,Standard,Optional
+12474,2018," E Class",E-CLASS,2018 Mercedes-Benz E-CLASS SW RWD,5,5,5,5,0.097,66,18,0,Standard,Standard,Optional
+12473,2018," E Class",E-CLASS,2018 Mercedes-Benz E-Class 2 DR RWD,,,,,0,66,18,0,Standard,Standard,Optional
+12472,2018," E Class",E-CLASS,2018 Mercedes-Benz E-Class 2 DR 4WD,,,,,0,66,18,0,Standard,Standard,Optional
+12500,2018," G Class",G-CLASS,2018 Mercedes-Benz G-Class SUV AWD,,,,,0,0,1,0,Standard,No,No
+12491,2018," GLA Class",GLA-CLASS,2018 Mercedes-Benz GLA-Class 4 DR FWD,,,,,0,49,12,2,Standard,Optional,Optional
+12490,2018," GLA Class",GLA-CLASS,2018 Mercedes-Benz GLA-Class 4 DR 4WD,,,,,0,49,12,2,Standard,Optional,Optional
+12493,2018," GLC Class",GLC-CLASS,2018 Mercedes-Benz GLC-Class SUV 4WD,5,5,5,4,0.184,99,15,3,Standard,Optional,Optional
+12492,2018," GLC Class",GLC-CLASS,2018 Mercedes-Benz GLC-Class SUV RWD,5,5,5,4,0.186,99,15,3,Standard,Optional,Optional
+12497,2018," GLE Class",GLE-CLASS,2018 Mercedes-Benz GLE-Class SUV 4WD,,,,4,0.179,56,9,2,Standard,Optional,Optional
+12496,2018," GLE Class",GLE-CLASS,2018 Mercedes-Benz GLE-Class SUV RWD,,,,4,0.198,56,9,2,Standard,Optional,Optional
+12501,2018," GLS Class",GLS-CLASS,2018 Mercedes-Benz GLS-Class SUV 4WD,,,,,0,22,4,0,Standard,Optional,Optional
+12485,2018," S Class",S-CLASS,2018 Mercedes-Benz S-Class C RWD,,,,,0,29,15,1,Standard,Optional,Optional
+12484,2018," S Class",S-CLASS,2018 Mercedes-Benz S-Class C 4WD,,,,,0,29,15,1,Standard,Optional,Optional
+12483,2018," S Class",S-CLASS,2018 Mercedes-Benz S-Class 4 DR RWD,,,,,0,29,15,1,Standard,Standard,Optional
+12482,2018," S Class",S-CLASS,2018 Mercedes-Benz S-Class 4 DR 4WD,,,,,0,29,15,1,Standard,Standard,Optional
+12486,2018," SL CLASS",SL-CLASS,2018 Mercedes-Benz SL-Class C RWD,,,,,0,2,2,1,Standard,Optional,Optional
+5254,2009," C Class",C-CLASS,2009 Mercedes-Benz C-Class 4-DR. w/SAB,,,,4,0.105,670,8,3,Standard,No,No
+5259,2009," E Class",E-CLASS,2009 Mercedes-Benz E-Class 4-DR. w/SAB,,,,5,0.101,85,4,0,Standard,Optional,No
+5258,2009," E Class",E-CLASS,2009 Mercedes-Benz E-Class Wagon 4-DR. w/SAB,,,,5,0.101,85,4,0,Standard,Optional,No
+5436,2009," S Class",S-CLASS,2009 Mercedes-Benz S-Class 4-DR w/SAB,,,,,0,13,1,0,Standard,Optional,No
+11758,2017," C Class",C-CLASS,2017 Mercedes-Benz C-Class 2 DR 4WD,,,,,0,252,17,3,Standard,Optional,Optional
+11659,2017," C Class",C-CLASS,2017 Mercedes-Benz C-Class C 4WD,,,,,0,252,17,3,Standard,Optional,Optional
+11658,2017," C Class",C-CLASS,2017 Mercedes-Benz C-Class C RWD,,,,,0,252,17,3,Standard,Optional,Optional
+11656,2017," C Class",C-CLASS,2017 Mercedes-Benz C-Class 2 DR RWD,,,,,0,252,17,3,Standard,Optional,Optional
+11189,2017," C Class",C-CLASS,2017 Mercedes-Benz C-Class 4 DR RWD,5,4,5,4,0.11,252,17,3,Standard,Optional,Optional
+11188,2017," C Class",C-CLASS,2017 Mercedes-Benz C-Class 4 DR 4WD,5,4,5,4,0.11,252,17,3,Standard,Optional,Optional
+11662,2017," CL Class",CL-CLASS,2017 Mercedes-Benz CL-Class 2 DR RWD,,,,,0,0,0,0,Standard,Optional,Optional
+11661,2017," CL Class",CL-CLASS,2017 Mercedes-Benz CL-Class 2 DR 4WD,,,,,0,0,0,0,Standard,Optional,Optional
+11664,2017," CLA Class",CLA-CLASS,2017 Mercedes-Benz CLA-Class 4 DR 4WD,,,,,0,27,10,2,Standard,Optional,Optional
+11663,2017," CLA Class",CLA-CLASS,2017 Mercedes-Benz CLA-Class 4 DR FWD,,,,,0,27,10,2,Standard,Optional,Optional
+11666,2017," CLS Class",CLS-CLASS,2017 Mercedes-Benz CLS-Class 4 DR 4WD,,,,,0,2,1,1,Standard,Optional,Optional
+11665,2017," CLS Class",CLS-CLASS,2017 Mercedes-Benz CLS-Class 4 DR RWD,,,,,0,2,1,1,Standard,Optional,Optional
+11674,2017," E Class",E-CLASS,2017 Mercedes-Benz E-Class C 4WD,,,,,0,166,20,1,Standard,Optional,Optional
+11673,2017," E Class",E-CLASS,2017 Mercedes-Benz E-Class C RWD,,,,,0,166,20,1,Standard,Optional,Optional
+11672,2017," E Class",E-CLASS,2017 Mercedes-Benz E-CLASS SW 4WD,5,5,5,5,0.097,166,20,1,Standard,Standard,Optional
+11671,2017," E Class",E-CLASS,2017 Mercedes-Benz E-CLASS SW RWD,5,5,5,5,0.097,166,20,1,Standard,Standard,Optional
+11670,2017," E Class",E-CLASS,2017 Mercedes-Benz E-Class 4 DR RWD,5,5,5,5,0.097,166,20,1,Standard,Standard,Optional
+11669,2017," E Class",E-CLASS,2017 Mercedes-Benz E-Class 4 DR 4WD,5,5,5,5,0.097,166,20,1,Standard,Standard,Optional
+11668,2017," E Class",E-CLASS,2017 Mercedes-Benz E-Class 2 DR RWD,,,,,0,166,20,1,Standard,Optional,Optional
+11667,2017," E Class",E-CLASS,2017 Mercedes-Benz E-Class 2 DR 4WD,,,,,0,166,20,1,Standard,Optional,Optional
+11765,2017," G Class",G-CLASS,2017 Mercedes-Benz G-Class SUV AWD,,,,,0,4,4,0,Standard,No,No
+11676,2017," GLA Class",GLA-CLASS,2017 Mercedes-Benz GLA-Class 4 DR FWD,,,,,0,33,9,2,Standard,Optional,Optional
+11675,2017," GLA Class",GLA-CLASS,2017 Mercedes-Benz GLA-Class 4 DR 4WD,,,,,0,33,9,2,Standard,Optional,Optional
+11678,2017," GLC Class",GLC-CLASS,2017 Mercedes-Benz GLC-Class SUV 4WD,,,,,0,115,12,2,Standard,Optional,Optional
+11677,2017," GLC Class",GLC-CLASS,2017 Mercedes-Benz GLC-Class SUV RWD,,,,,0,115,12,2,Standard,Optional,Optional
+11191,2017," GLE Class",GLE-CLASS,2017 Mercedes-Benz GLE-Class SUV 4WD,,,,4,0.179,74,12,2,Standard,Optional,Optional
+11190,2017," GLE Class",GLE-CLASS,2017 Mercedes-Benz GLE-Class SUV RWD,,,,4,0.198,74,12,2,Standard,Optional,Optional
+11685,2017," GLS Class",GLS-CLASS,2017 Mercedes-Benz GLS-Class SUV 4WD,,,,,0,41,10,0,Standard,Optional,Optional
+11689,2017," S Class",S-CLASS,2017 Mercedes-Benz S-Class C RWD,,,,,0,22,10,2,Standard,Optional,Optional
+11688,2017," S Class",S-CLASS,2017 Mercedes-Benz S-Class C 4WD,,,,,0,22,10,2,Standard,Optional,Optional
+11687,2017," S Class",S-CLASS,2017 Mercedes-Benz S-Class 4 DR 4WD,,,,,0,22,10,2,Standard,Optional,Optional
+11686,2017," S Class",S-CLASS,2017 Mercedes-Benz S-Class 4 DR RWD,,,,,0,22,10,2,Standard,Optional,Optional
+11692,2017," SL CLASS",SL-CLASS,2017 Mercedes-Benz SL-Class C RWD,,,,,0,4,2,1,Standard,Optional,Optional
+14058,2019," A Class",A-CLASS,2019 Mercedes-Benz A-Class 4 DR 4WD,,,,,0,44,14,1,Standard,Standard,Optional
+14032,2019," A Class",A-CLASS,2019 Mercedes-Benz A-Class 4 DR FWD,,,,,0,45,14,1,Standard,Standard,Optional
+15046,2019," C Class",C-CLASS,2019 Mercedes-Benz C-Class 4 DR 4WD,,4,,4,0.11,75,18,1,Standard,Standard,Optional
+15042,2019," C Class",C-CLASS,2019 Mercedes-Benz C-Class 4 DR RWD,,4,,4,0.11,75,18,1,Standard,Standard,Optional
+14060,2019," C Class",C-CLASS,2019 Mercedes-Benz C-Class 2 DR 4WD,,,,,0,75,18,1,Standard,Standard,Optional
+14035,2019," C Class",C-CLASS,2019 Mercedes-Benz C-Class 2 DR RWD,,,,,0,75,18,1,Standard,Standard,Optional
+14061,2019," CLA Class",CLA-CLASS,2019 Mercedes-Benz CLA-Class 4 DR 4WD,,,,,0,51,12,1,Standard,Optional,Optional
+14036,2019," CLA Class",CLA-CLASS,2019 Mercedes-Benz CLA-Class 4 DR FWD,,,,,0,22,6,1,Standard,Optional,Optional
+14062,2019," CLS Class",CLS-CLASS,2019 Mercedes-Benz CLS-Class 4 DR 4WD,,,,,0,20,14,0,Standard,Standard,Optional
+14037,2019," CLS Class",CLS-CLASS,2019 Mercedes-Benz CLS-Class 4 DR RWD,,,,,0,20,14,0,Standard,Standard,Optional
+15048,2019," E Class",E-CLASS,2019 Mercedes-Benz E-Class SW 4WD,5,5,5,5,0.097,54,21,0,Standard,Standard,Optional
+15047,2019," E Class",E-CLASS,2019 Mercedes-Benz E-Class 4 DR 4WD,5,5,5,5,0.097,54,21,0,Standard,Standard,Optional
+15044,2019," E Class",E-CLASS,2019 Mercedes-Benz E-Class SW RWD,5,5,5,5,0.097,54,21,0,Standard,Standard,Optional
+15043,2019," E Class",E-CLASS,2019 Mercedes-Benz E-Class 4 DR RWD,5,5,5,5,0.097,54,21,0,Standard,Standard,Optional
+14064,2019," E Class",E-CLASS,2019 Mercedes-Benz E-Class 2 DR 4WD,,,,,0,54,21,0,Standard,Standard,Optional
+14039,2019," E Class",E-CLASS,2019 Mercedes-Benz E-Class 2 DR RWD,,,,,0,54,21,0,Standard,Standard,Optional
+14040,2019," G Class",G-CLASS,2019 Mercedes-Benz G-Class SUV 4WD,,,,,0,6,13,0,Standard,Standard,No
+14065,2019," GLA Class",GLA-CLASS,2019 Mercedes-Benz GLA-Class SUV 4WD,,,,,0,29,11,1,Standard,Optional,Optional
+14041,2019," GLA Class",GLA-CLASS,2019 Mercedes-Benz GLA-Class SUV FWD,,,,,0,29,11,1,Standard,Optional,Optional
+15049,2019," GLC Class",GLC-CLASS,2019 Mercedes-Benz GLC-Class SUV 4WD,5,5,5,4,0.186,68,14,2,Standard,Optional,Optional
+15045,2019," GLC Class",GLC-CLASS,2019 Mercedes-Benz GLC-Class SUV RWD,5,5,5,4,0.184,68,14,2,Standard,Optional,Optional
+14073,2019," GLE Class",GLE-CLASS,2019 Mercedes-Benz GLE-Class SUV RWD,,,,4,0.198,32,6,1,Standard,Optional,Optional
+14072,2019," GLE Class",GLE-CLASS,2019 Mercedes-Benz GLE-Class SUV 4WD,,,,4,0.179,32,6,1,Standard,Optional,Optional
+14045,2019," GLS Class",GLS-CLASS,2019 Mercedes-Benz GLS-Class SUV 4WD,,,,,0,27,3,0,Standard,Optional,Optional
+14071,2019," S Class",S-CLASS,2019 Mercedes-Benz S-Class 2 DR 4WD,,,,,0,16,14,1,Standard,Standard,Optional
+14068,2019," S Class",S-CLASS,2019 Mercedes-Benz S-Class 4 DR 4WD,,,,,0,16,14,1,Standard,Standard,Optional
+14053,2019," S Class",S-CLASS,2019 Mercedes-Benz S-Class 2 DR RWD,,,,,0,16,14,1,Standard,Standard,Optional
+14050,2019," S Class",S-CLASS,2019 Mercedes-Benz S-Class 4 DR RWD,,,,,0,16,14,1,Standard,Standard,Optional
+14055,2019," SL CLASS",SL-CLASS,2019 Mercedes-Benz SL-Class C RWD,,,,,0,0,4,0,Standard,Optional,Optional
+1759,2006," C Class",C-CLASS,2006 Mercedes-Benz C-Class 4-DR. w/SAB,,,,,0,183,7,1,Standard,No,No
+1760,2006," E Class",E-CLASS,2006 Mercedes-Benz E-Class 4-DR. w/SAB,,,,,0,536,6,3,Standard,No,No
+9682,2015," C Class",C-CLASS,2015 Mercedes-Benz C-Class 2 DR RWD,,,,,0,441,14,3,Standard,Optional,Optional
+9681,2015," C Class",C-CLASS,2015 Mercedes-Benz C-Class 2 DR 4WD,,,,,0,441,14,3,Standard,Optional,Optional
+9680,2015," C Class",C-CLASS,2015 Mercedes-Benz C-Class 4 DR RWD,4,4,5,4,0.11,441,14,3,Standard,Standard,Optional
+9679,2015," C Class",C-CLASS,2015 Mercedes-Benz C-Class 4 DR 4WD,4,4,5,4,0.11,441,14,3,Standard,Standard,Optional
+9684,2015," CL Class",CL-CLASS,2015 Mercedes-Benz Cl-Class 2 DR RWD,,,,,0,0,0,0,Standard,Standard,Optional
+9683,2015," CL Class",CL-CLASS,2015 Mercedes-Benz Cl-Class 2 DR 4WD,,,,,0,0,0,0,Standard,Standard,Optional
+9686,2015," CLA Class",CLA-CLASS,2015 Mercedes-Benz Cla-Class 4 DR FWD,,,,,0,157,7,2,Standard,Standard,Optional
+9685,2015," CLA Class",CLA-CLASS,2015 Mercedes-Benz Cla-Class 4 DR 4WD,,,,,0,157,7,2,Standard,Optional,Optional
+9688,2015," CLS Class",CLS-CLASS,2015 Mercedes-Benz Cls-Class 4 DR RWD,,,,,0,9,4,1,Standard,Standard,Optional
+9687,2015," CLS Class",CLS-CLASS,2015 Mercedes-Benz Cls-Class 4 DR 4WD,,,,,0,9,4,1,Standard,Standard,Optional
+9692,2015," E Class",E-CLASS,2015 Mercedes-Benz E-Class 2 DR RWD,,,,,0,57,10,2,Standard,Standard,Optional
+9691,2015," E Class",E-CLASS,2015 Mercedes-Benz E-Class 2 DR 4WD,,,,,0,57,10,2,Standard,Standard,Optional
+9227,2015," E Class",E-CLASS,2015 Mercedes-Benz E-CLASS SW 4WD,4,4,5,5,0.099,57,10,2,Standard,Standard,Optional
+9226,2015," E Class",E-CLASS,2015 Mercedes-Benz E-CLASS SW RWD,4,4,5,5,0.099,57,10,2,Standard,Standard,Optional
+9225,2015," E Class",E-CLASS,2015 Mercedes-Benz E-Class 4 DR 4WD,4,4,5,5,0.099,57,10,2,Standard,Standard,Optional
+9224,2015," E Class",E-CLASS,2015 Mercedes-Benz E-Class 4 DR RWD,4,4,5,5,0.099,57,10,2,Standard,Standard,Optional
+9693,2015," G Class",G-CLASS,2015 Mercedes-Benz G-Class SUV AWD,,,,,0,3,2,0,Standard,No,No
+9694,2015," GL Class",GL-CLASS,2015 Mercedes-Benz GL-Class SUV 4WD,,,,,0,34,3,0,Standard,Optional,Optional
+9696,2015," GLA Class",GLA-CLASS,2015 Mercedes-Benz GLA-Class 4 DR FWD,,,,,0,100,5,2,Standard,Optional,Optional
+9695,2015," GLA Class",GLA-CLASS,2015 Mercedes-Benz GLA-Class 4 DR 4WD,,,,,0,100,5,2,Standard,Optional,Optional
+9700,2015," S Class",S-CLASS,2015 Mercedes-Benz S-Class 4 DR RWD,,,,,0,51,9,2,Standard,Standard,Optional
+9699,2015," S Class",S-CLASS,2015 Mercedes-Benz S-Class 4 DR 4WD,,,,,0,51,9,2,Standard,Standard,Optional
+9703,2015," SL CLASS",SL-CLASS,2015 Mercedes-Benz SL-Class C RWD,,,,,0,4,3,1,Standard,No,Optional
+15091,2020," A Class",A-CLASS,2020 Mercedes-Benz A-Class 4 DR 4WD,,,,,0,21,10,0,Standard,No,Optional
+15065,2020," A Class",A-CLASS,2020 Mercedes-Benz A-Class 4 DR FWD,,,,,0,21,10,0,Standard,No,Optional
+15080,2020," C Class",C-CLASS,2020 Mercedes-Benz C-Class 2 DR 4WD,,,,,0,46,12,1,Standard,No,No
+15079,2020," C Class",C-CLASS,2020 Mercedes-Benz C-Class 4 DR 4WD,,4,,4,0.11,46,12,1,Standard,No,No
+15051,2020," C Class",C-CLASS,2020 Mercedes-Benz C-Class 2 DR RWD,,,,,0,46,12,1,Standard,No,No
+15050,2020," C Class",C-CLASS,2020 Mercedes-Benz C-Class 4 DR RWD,,4,,4,0.11,46,12,1,Standard,No,No
+15092,2020," CLA Class",CLA-CLASS,2020 Mercedes-Benz CLA-Class 4 DR 4WD,,,,,0,23,13,0,Standard,No,Optional
+15066,2020," CLA Class",CLA-CLASS,2020 Mercedes-Benz CLA-Class 4 DR FWD,,,,,0,23,13,0,Standard,No,Optional
+15086,2020," CLS Class",CLS-CLASS,2020 Mercedes-Benz CLS-Class 4 DR 4WD,,,,,0,6,8,0,Standard,No,No
+15057,2020," CLS Class",CLS-CLASS,2020 Mercedes-Benz CLS-Class 4 DR RWD,,,,,0,0,1,0,Standard,No,No
+15084,2020," E Class",E-CLASS,2020 Mercedes-Benz E-Class 2 DR 4WD,,,,,0,20,15,0,Standard,No,No
+15082,2020," E Class",E-CLASS,2020 Mercedes-Benz E-Class 4 DR 4WD,5,5,5,5,0.097,20,15,0,Standard,No,No
+15055,2020," E Class",E-CLASS,2020 Mercedes-Benz E-Class 2 DR RWD,,,,,0,20,15,0,Standard,No,No
+15053,2020," E Class",E-CLASS,2020 Mercedes-Benz E-Class 4 DR RWD,5,5,5,5,0.097,20,15,0,Standard,No,No
+15074,2020," G Class",G-CLASS,2020 Mercedes-Benz G-Class SUV 4WD,,,,,0,2,8,0,Standard,Standard,No
+15093,2020," GLA Class",GLA-CLASS,2020 Mercedes-Benz GLA-Class SUV 4WD,,,,,0,9,5,1,Standard,No,Optional
+15067,2020," GLA Class",GLA-CLASS,2020 Mercedes-Benz GLA-Class SUV FWD,,,,,0,9,5,1,Standard,No,Optional
+15094,2020," GLB Class",GLB-CLASS,2020 Mercedes-Benz GLB-Class SUV 4WD,,,,,0,57,20,0,Standard,Standard,No
+15068,2020," GLB Class",GLB-CLASS,2020 Mercedes-Benz GLB-Class SUV FWD,,,,,0,57,20,0,Standard,Standard,No
+15095,2020," GLC Class",GLC-CLASS,2020 Mercedes-Benz GLC-Class SUV 4WD,,,5,4,0.186,78,20,2,Standard,Standard,No
+15069,2020," GLC Class",GLC-CLASS,2020 Mercedes-Benz GLC-Class SUV RWD,,,5,4,0.184,78,20,2,Standard,Standard,No
+15097,2020," GLE Class",GLE-CLASS,2020 Mercedes-Benz GLE-Class SUV 4WD,,,,,0,123,36,0,Standard,Standard,No
+15073,2020," GLE Class",GLE-CLASS,2020 Mercedes-Benz GLE-Class SUV RWD,,,,,0,123,36,0,Standard,Standard,No
+15075,2020," GLS Class",GLS-CLASS,2020 Mercedes-Benz GLS-Class SUV 4WD,,,,,0,38,24,0,Standard,Standard,No
+15089,2020," S Class",S-CLASS,2020 Mercedes-Benz S-Class 2 DR 4WD,,,,,0,7,7,2,Standard,No,No
+15087,2020," S Class",S-CLASS,2020 Mercedes-Benz S-Class 4 DR 4WD,,,,,0,7,7,2,Standard,No,No
+15061,2020," S Class",S-CLASS,2020 Mercedes-Benz S-Class 2 DR RWD,,,,,0,7,7,2,Standard,No,No
+15058,2020," S Class",S-CLASS,2020 Mercedes-Benz S-Class 4 DR RWD,,,,,0,7,7,2,Standard,No,No
+15063,2020," SL CLASS",SL-CLASS,2020 Mercedes-Benz SL-Class C RWD,,,,,0,2,3,0,Standard,No,No
