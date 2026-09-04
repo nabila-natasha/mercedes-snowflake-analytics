@@ -9,11 +9,10 @@ provides the business-facing reporting layer.
 
 # 1. Used Car Analytics
 
-The Used Vehicle dashboard provides market-oriented analysis of
+The Used Car dashboard provides market-oriented analysis of
 Mercedes-Benz used vehicles.
 
 ### Key analysis
-
 - Total vehicles
 - Average price
 - Average MPG
@@ -37,25 +36,21 @@ The Manufacturing dashboard communicates the performance of the
 manufacturing test-time prediction model.
 
 ### Key metrics
-
 - Test MAE
 - Test R²
 - MAE improvement versus baseline
 - Train/test performance
 
 ### Analytical visuals
-
 - Actual vs Predicted Test Time
 - Residual classification
 - Feature importance
 - Baseline vs model comparison
 
 ### Final model
-
 Tuned Random Forest regression.
 
 ### Final test performance
-
 - Test MAE: 5.30 seconds
 - Test R²: 0.59
 - MAE improvement: 47.7%
@@ -65,7 +60,6 @@ Tuned Random Forest regression.
 # 3. Vehicle Safety Analytics
 
 The Vehicle Safety dashboard provides:
-
 - Vehicle configurations
 - Electronic Stability Control adoption
 - Complaints
