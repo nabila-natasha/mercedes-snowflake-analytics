@@ -184,8 +184,8 @@ business-ready analytical structures.
 The complete architecture is documented in:
 docs/architecture.md
 
-Architecture diagram:
-docs/screenshots/architecture.png
+Architecture diagram:  
+!docs/screenshots/architecture.png
 
 
 ---
