@@ -5,22 +5,36 @@
 The Mercedes-Benz Vehicle Analytics Platform is an end-to-end data
 engineering, analytics and machine learning platform.
 
-The architecture separates:
+The architecture is organised around three independent analytical
+domains:
 
-- Data sources
-- Data ingestion
-- Data storage
-- Data transformation
-- Analytical modelling
-- Machine learning
-- Business intelligence
-- CI/CD automation
+- Used Vehicle Analytics
+- Manufacturing Machine Learning
+- Vehicle Safety Analytics
 
-The platform uses Snowflake as the central cloud data platform.
+All three domains use Snowflake as the central cloud data platform.
+
+GitHub Actions provides the CI/CD automation and deployment control
+layer.
 
 ---
 
-## 2. High-Level Architecture
+# 2. Architectural Principles
+
+The platform follows these principles:
+
+1. Separate data ingestion from transformation
+2. Preserve source-aligned data in RAW
+3. Transform data through layered Snowflake schemas
+4. Keep independent business domains analytically separate
+5. Use dimensional modelling where appropriate
+6. Automate testing and deployment
+7. Validate the production environment after deployment
+8. Keep credentials outside source control
+
+---
+
+# 3. End-to-End Architecture
 
 ```text
                          DATA SOURCES
@@ -28,8 +42,8 @@ The platform uses Snowflake as the central cloud data platform.
              +----------------+----------------+
              |                |                |
              v                v                v
-          NHTSA         Used Vehicle      Manufacturing
-           Data              Data              Data
+       Used Vehicle      Manufacturing      NHTSA
+          Data               Data         Safety Data
              |                |                |
              +----------------+----------------+
                               |
@@ -37,61 +51,48 @@ The platform uses Snowflake as the central cloud data platform.
                      PYTHON INGESTION
                               |
                               v
-                     SNOWFLAKE PLATFORM
+                    SNOWFLAKE PLATFORM
                               |
-                +-------------+-------------+
-                |             |             |
-                v             v             v
-               RAW          SILVER         GOLD
-                |             |             |
-                |             |             +------> Power BI
-                |             |
-                |             +--------------------> Analytics
-                |
-                +---------------------------------> Audit / Validation
-
+              +---------------+---------------+
+              |               |               |
+              v               v               v
+             RAW            SILVER           GOLD
+              |               |               |
+              |               |               |
+              +---------------+---------------+
+                              |
+            +-----------------+-----------------+
+            |                 |                 |
+            v                 v                 v
+       USED VEHICLE      MANUFACTURING     VEHICLE SAFETY
+        ANALYTICS             ML              ANALYTICS
+            |                 |                 |
+            +-----------------+-----------------+
                               |
                               v
-                       ML WORKFLOW
-                              |
-                              v
-                 Manufacturing Prediction
+                           POWER BI
 ```
 
-
 ---
 
-## 2. Data Sources
+# 4. Data Source Layer
 
-The platform combines three main data domains.
+The platform uses three independent source domains.
 
-#### Used Vehicle Data
-Used for:
-- Vehicle pricing analysis
-- Mileage analysis
-- Model analysis
-- Fuel type analysis
+#### Used Car Data
+Supports vehicle pricing and market analysis.
 
 #### Manufacturing Data
-Used for:
-- Manufacturing test-time prediction
-- Machine learning
-- Feature importance
-- Residual analysis
+Supports manufacturing test-time machine learning.
 
 #### NHTSA Vehicle Safety Data
-Used for:
-- Vehicle configurations
-- Complaints
-- Recalls
-- Investigations
-- Safety-related attributes
-- Crash ratings
+Supports vehicle safety analysis.
 
+The datasets are not assumed to share a universal primary key.
 
 ---
 
-## 4. Ingestion Architecture
+# 5. Ingestion Layer
 
 Python is used to move source data into Snowflake.
 
@@ -112,14 +113,13 @@ COPY INTO
       v
 RAW Table
 ```
-This separates data acquisition/loading from downstream transformation.
-
+The ingestion layer is intentionally separated from downstream transformation.
 
 ---
 
-## 5. Snowflake Architecture
+# 6. Snowflake Data Platform
 
-The production database is organised into four meain schemas:
+The production database is organised into four main schemas:
 
 ```text
 MERCEDES_PROD
@@ -131,25 +131,30 @@ MERCEDES_PROD
 ```
 
 #### RAW  
-The RAW layer contains source-aligned data with minimal transformation.
+Source-aligned landing layer.
 
-Its purpose is to provide a persistent landing layer for ingested
-source data.
+Responsibilities:
+- Store ingested source data
+- Preserve source attributes
+- Provide a stable downstream input
 
 #### SILVER
-The SILVER layer contains cleaned and standardised data.
+Cleaned and standardised data layer.
 
-Typical responsibilities include:
-- Standardisation
-- Data type handling
+Responsibilities:
+- Data type standardisation
 - Cleaning
 - Normalisation
-- Preparation for analytical modelling
+- Business preparation
+- Transformation
 
 #### GOLD
-The GOLD layer contains business-ready analytical structures.
+Business-ready analytical layer.
 
-These structures are designed for downstream reporting and analytics.
+Responsibilities:
+- Analytical structures
+- Business metrics
+- Reporting-ready data
 
 #### AUDIT
 The AUDIT layer contains validation and operational information used
@@ -158,23 +163,60 @@ to support production data quality checks.
 
 ---
 
-## 6. Snowflake Dynamic Tables
+# 7. Snowflake Dynamic Tables
 
-Snowflake Dynamic Tables are used for selected transformed analytical
+Snowflake Dynamic Tables are used for selected derived analytical
 structures.
 
-The purpose is to allow Snowflake to maintain derived data based on
+The purpose is to allow Snowflake to maintain derived data according to
 the defined target-lag configuration rather than requiring every
-transformation to be manually orchestrated through repeated data
-movement operations.
+transformation to be manually orchestrated.
 
-This is particularly useful for maintaining derived analytical data
-within the Snowflake platform.
-
+Dynamic Tables therefore form part of the transformation / analytical
+processing architecture rather than being a separate data layer.
 
 ---
 
-## 7. Security Architecture  
+# 8. Analytical Domains
+
+The platform contains three separate analytical domains.
+
+```text
+                         GOLD
+                          |
+          +---------------+---------------+
+          |               |               |
+          v               v               v
+      USED CAR       MANUFACTURING    VEHICLE SAFETY
+      ANALYTICS           ML             ANALYTICS
+```
+
+#### Used Vehicle Analytics
+Focuses on:
+- Price
+- Mileage
+- MPG
+- Model
+- Year
+- Fuel type
+
+#### Manufacturing ML
+Focuses on:
+- Test-time prediction
+- Model performance
+- Feature importance
+- Residual analysis
+
+#### Vehicle Safety
+- Focuses on:
+- Complaints
+- Recalls
+- Investigations
+- Crash ratings
+- Safety technology
+- Model-year trends
+
+# 8. Security Architecture  
 
 Snowflake access is managed through role-based access control.
 
@@ -196,36 +238,30 @@ The data engineering role supports deployment and engineering activities.
 
 The analyst role supports analytical consumption.
 
-
 ---
 
-## 8. Analytical Layer
+# 9. Power BI Layer
 
-The analytical layer is consumed by Power BI.
+Power BI consumes analytical data from Snowflake.
 
-The platform supports three analytical products:
+The reporting layer contains three dashboard products:
 
 ```text
-                    GOLD / ANALYTICAL DATA
-                              |
-             +----------------+----------------+
-             |                |                |
-             v                v                v
-        Used Vehicle     Manufacturing     Vehicle Safety
-          Analytics           ML              Analytics
-             |                |                |
-             +----------------+----------------+
-                              |
-                              v
-                           POWER BI
+Snowflake Analytical Data
+          |
+    +-----+-----+-----+
+    |           |     |
+    v           v     v
+ Used Car   Manufacturing Safety
+ Analytics       ML      Analytics
 ```
-
+The dashboards provide the business-facing presentation layer.
 
 ---
 
-## 8. Machine Learning Architecture
+# 10. Machine Learning Layer
 
-The manufacturing machine learning workflow is implemented in Python.
+The manufacturing ML workflow is implemented in Python.
 
 ```text
 Manufacturing Data
@@ -236,31 +272,139 @@ Feature Preparation
         v
 Train / Test Split
         |
-        +--------------------+
-        |                    |
-        v                    v
-Naive Baseline          Random Forest
-                             |
-                             v
-                      Model Tuning
-                             |
-                             v
-                     Final Model
-                             |
-                +------------+------------+
-                |                         |
-                v                         v
-        Feature Importance          Residual Analysis
-                |                         |
-                +------------+------------+
-                             |
-                             v
+        +-------------------+
+        |                   |
+        v                   v
+Naive Baseline       Random Forest
+                            |
+                            v
+                     Hyperparameter
+                        Tuning
+                            |
+                            v
+                      Final Model
+                            |
+               +------------+------------+
+               |                         |
+               v                         v
+       Feature Importance         Residual Analysis
+               |                         |
+               +------------+------------+
+                            |
+                            v
                          Power BI
 ```
 
+# 11. Security Architecture
 
+Snowflake access is managed using role-based access control.
 
+```text
+                         SYSADMIN
+                            |
+              +-------------+-------------+
+              |                           |
+              v                           v
+          MERC_DE                   MERC_ANALYST
+              |                           |
+              v                           v
+       Engineering /              Analytical / BI
+        Deployment                    Access
+```
+The engineering role supports engineering and deployment activities.
 
+The analyst role supports analytical consumption.
 
+---
 
+# 12. CI/CD Architecture
 
+GithHub Actions operates as the automation and deployment control plane.
+
+```text
+Developer
+    |
+    v
+GitHub Repository
+    |
+    v
+GitHub Actions
+    |
+    +-------------------+
+    |                   |
+    v                   v
+   CI                   CD
+    |                   |
+    v                   v
+Automated Tests    Production Deployment
+                        |
+                        v
+                    Snowflake
+                        |
+                        v
+                 Production Validation
+```
+
+#### CI
+CI validates project changes through automated checks.
+
+#### CD
+CD deploys the production environment and runs post-deployment validation.
+
+---
+
+# 13. Deployment Flow
+
+The production deployment follows:
+
+```text
+GitHub
+  |
+  v
+CD Workflow
+  |
+  +--> NHTSA Ingestion
+  |
+  +--> Used Vehicle Loading
+  |
+  +--> Manufacturing Loading
+  |
+  +--> Snowflake Deployment
+  |
+  +--> Production Validation
+  |
+  v
+Deployment Result
+```
+
+---
+
+# 14. Architecture Summary
+
+The platform separates:
+
+```text
+SOURCE
+   ↓
+INGESTION
+   ↓
+STORAGE
+   ↓
+TRANSFORMATION
+   ↓
+ANALYTICS
+   ↓
+REPORTING / ML
+```
+
+while GitHub Actions provides:
+
+```text
+VERSION CONTROL
+       ↓
+      CI
+       ↓
+      CD
+       ↓
+PRODUCTION VALIDATION
+```
