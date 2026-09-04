@@ -185,7 +185,7 @@ The complete architecture is documented in:
 docs/architecture.md
 
 Architecture diagram:  
-!docs/screenshots/architecture.png
+docs/screenshots/architecture.png
 
 
 ---
@@ -246,7 +246,7 @@ grouping and analysis.
 The Power BI semantic model provides the reporting layer used by the
 analytical dashboards.
 
-See:
+See:  
 docs/data-model.md
 
 
@@ -294,9 +294,7 @@ The final model is a tuned Random Forest regression model.
 - MAE improvement versus baseline: 47.7%
 - Train/Test R² gap: 0.013
 
-More detail is available in:
-
-More detail is available in:
+More detail is available in:  
 docs/ml-model.md
 
 
@@ -345,7 +343,7 @@ The dashboard provides:
  - Complaints vs Recalls
  - Safety Technology Adoptions
 
-Dashboard screenshots are available under:
+Dashboard screenshots are available under:  
 docs/screenshots/
 
 --- 
@@ -379,7 +377,7 @@ The workflow includes:
 
 The final project version successfully completed both CI and CD.
 
-See:
+See:  
 docs/validation.md
 
 
@@ -430,7 +428,7 @@ The final repository was validated through:
 Both GitHub Actions workflows completed successfully for the final
 implementation.
 
-Validation evidence and methodology are documented in:
+Validation evidence and methodology are documented in:  
 docs/validation.md
 
 
