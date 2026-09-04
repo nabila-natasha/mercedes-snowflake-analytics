@@ -153,7 +153,7 @@ Depending on the source endpoint, attributes may include:
 - Consequence
 - Remedy
 
-## Data Quality
+## Data Quality Decision
 
 Source responses are validated before downstream analytical use.
 
