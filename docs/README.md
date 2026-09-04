@@ -10,6 +10,7 @@ Mercedes-Benz Vehicle Analytics Platform.
 | Document | Purpose |
 |---|---|
 | [Architecture](architecture.md) | End-to-end platform and system architecture |
+| [Data Sources](data_sources.md) | Source datasets and business purpose |
 | [Data Model](data-model.md) | Analytical and Power BI data model |
 | [Machine Learning](ml-model.md) | Manufacturing ML methodology and results |
 | [Validation](validation.md) | CI/CD and production validation |
@@ -21,7 +22,6 @@ Mercedes-Benz Vehicle Analytics Platform.
 `architecture.md`
 
 Documents:
-
 - Source systems
 - Python ingestion
 - Snowflake architecture
@@ -31,6 +31,15 @@ Documents:
 - Machine learning
 - GitHub Actions
 - CI/CD deployment flow
+
+---
+
+## Data Sources
+
+`data_sources.md`
+
+Documents the source datasets, their business purpose, grain, schema,
+data-quality findings and ingestion considerations.
 
 ---
 
