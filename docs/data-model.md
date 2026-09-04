@@ -176,7 +176,7 @@ used by the dashboards.
 The following screenshot shows the implemented table relationships
 in Power BI Model view.
 
-![Power BI Semantic Model](docs/screenshots/data-model.PNG)
+![Power BI Semantic Model](./docs/screenshots/data-model.png)
 
 The model view provides visual evidence that the analytical tables
 and relationships described in this document have been implemented
