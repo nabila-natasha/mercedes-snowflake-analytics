@@ -1,26 +1,41 @@
 # Mercedes-Benz Vehicle Analytics — Data Sources
 
-## 1. Used Car Dataset
+## 1. Overview
 
-### Source
+The platform uses three main data domains:
+
+1. Used vehicle data
+2. Manufacturing data
+3. NHTSA vehicle safety data
+
+These datasets have different grains, structures and business purposes.
+
+They are therefore treated as separate analytical domains rather than
+being artificially joined through unsupported keys.
+
+---
+
+# 2. Used Vehicle Dataset
+
+## Source
 
 100,000 UK Used Car Data Set — Mercedes-Benz subset.
 
-### Local file
+## Local File
 
 `data/raw/mercedes.csv`
 
-### Purpose
+## Purpose
 
-Used for vehicle resale and pricing analytics.
+Used for vehicle resale, pricing and vehicle characteristic analytics.
 
-### Grain
+## Grain
 
 One row represents one used-vehicle listing.
 
-### Columns
+## Columns
 
-| Column | Source Type | Business Meaning |
+| Column | Type | Business Meaning |
 |---|---|---|
 | model | string | Mercedes vehicle model |
 | year | integer | Vehicle registration/model year |
@@ -32,7 +47,7 @@ One row represents one used-vehicle listing.
 | mpg | float | Fuel economy |
 | engineSize | float | Engine displacement |
 
-### Initial Data Quality Findings
+## Initial Data Quality Findings
 
 - 13,119 rows
 - 9 columns
@@ -41,106 +56,179 @@ One row represents one used-vehicle listing.
 - Year range: 1970–2020
 - Price range: 650–159,999
 - Mileage range: 1–259,000
-- Tax range: 0-580
-- mpg range: 1.1-217.3
+- Tax range: 0–580
+- MPG range: 1.1–217.3
 - Engine size range: 0–6.2
 
-### Data Quality Decision
+## Data Quality Decision
 
-Duplicate records will be investigated before the Silver layer.
+RAW should preserve the source data.
 
-We will not automatically remove duplicates from RAW because RAW should preserve source data.
+Duplicate records are therefore investigated before downstream
+transformation rather than automatically removing them from RAW.
 
 ---
 
-## 2. Mercedes-Benz Greener Manufacturing
+# 3. Manufacturing Dataset
 
-### Source
+## Source
 
 Mercedes-Benz Greener Manufacturing competition dataset.
 
-### Local file
+## Local File
 
 `data/raw/train.csv`
 
-### Purpose
+## Purpose
 
-Used to demonstrate ingestion and processing of high-dimensional manufacturing test-bench data.
+Used to demonstrate ingestion and processing of high-dimensional
+manufacturing test-bench data and machine learning prediction.
 
-### Grain
+## Grain
 
 One row represents one manufacturing observation.
 
-### Columns
+## Structure
 
 - `ID`
 - `y`
 - `X0` through `X385`
 
-### Initial Data Quality Findings
+## Initial Data Quality Findings
 
 - 4,209 rows
 - 378 columns
 - No missing values
 - No duplicate rows
 - `ID` is an integer identifier
-- `y` is a numeric target
-- X-columns contain categorical and numeric manufacturing features
+- `y` is the numeric target
+- X-columns contain categorical and numerical manufacturing features
 
-### Data Quality Decision
+## Data Quality Decision
 
-The original anonymized feature names will be preserved in RAW.
+The original anonymised feature names are preserved in RAW.
 
-Feature interpretation will not be invented because the source does not provide business definitions for X0-X385.
-
----
-
-## 3. NHTSA Recall API
-
-### Source
-
-NHTSA public vehicle recall API.
-
-### Purpose
-
-Used to demonstrate incremental API ingestion and recall analytics.
-
-### Loading Pattern
-
-API data will be ingested incrementally into Snowflake RAW.
-
-### Expected Business Attributes
-
-Depending on API response:
-
-- manufacturer
-- make
-- model
-- model year
-- campaign number
-- recall component
-- recall summary
-- consequence
-- remedy
-
-### Data Quality
-
-API response schema will be validated before loading.
+Feature meanings are not invented because the source dataset does not
+provide business definitions for the anonymised X-columns.
 
 ---
 
-# Data Integration Strategy
+# 4. NHTSA Vehicle Safety Data
 
-The three sources do not share a reliable technical primary key.
+## Source
 
-Therefore, they will initially be modeled as separate business domains.
+NHTSA public vehicle safety / recall data.
 
-Potential semantic relationships may be established later using normalized vehicle attributes such as:
+## Purpose
 
-- make
-- model
-- model year
+Used to support vehicle safety analytics covering:
 
-Only relationships supported by the source data will be implemented.
+- Vehicle configurations
+- Complaints
+- Recalls
+- Investigations
+- Model years
+- Safety-related attributes
+- Crash-rating information where available
 
-No artificial keys will be created solely to force relationships between unrelated datasets.
+## Loading Pattern
+
+Source API data is retrieved using the Python ingestion layer and loaded
+into Snowflake.
+
+The ingestion workflow separates source retrieval from downstream
+transformation.
+
+## Expected Attributes
+
+Depending on the source endpoint, attributes may include:
+
+- Manufacturer
+- Make
+- Model
+- Model year
+- Campaign number
+- Recall component
+- Recall summary
+- Consequence
+- Remedy
+
+## Data Quality
+
+Source responses are validated before downstream analytical use.
+
+---
+
+# 5. Data Integration Strategy
+
+The three domains do not share a reliable technical primary key.
+
+Therefore:
+
+```text
+USED VEHICLE
+      |
+      +----> Used Vehicle Analytics
+
+
+MANUFACTURING
+      |
+      +----> Manufacturing ML
+
+
+NHTSA SAFETY
+      |
+      +----> Vehicle Safety Analytics
+
+```
+They share the same Snowflake platform but remain analytically independent.
+
+Potential semantic relationships may be explored using attributes such as:
+- Make
+- Model
+- Model Year
+
+However, relationships are only implemented where the source data provides
+sufficient evidence to support them. No artificial relationships are created 
+solely to force unrelated datasets into a single analytical model.
+
+---
+
+# 6. Data Layer Strategy
+
+Source data is loaded into the RAW layer before transformation.
+
+```text
+Source
+  |
+  v
+RAW
+  |
+  v
+SILVER
+  |
+  v
+GOLD
+  |
+  v
+Analytics
+
+```
+**RAW** preserves source-aligned information.
+**SILVER** applies cleaning and standardization.
+**GOLD** provides business-ready analytical structures.
+
+---
+
+# 7. Data Quality Principles
+
+The project follows these principles:
+- Preserve source data in RAW
+- Separate source ingestion from transformation
+- Validate source structures before downstream use
+- Avoid unsupported cross-domain joins
+- Document known data-quality issues
+- Apply business transformations downstream of RAW
+
+
+
