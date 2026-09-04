@@ -93,11 +93,11 @@ Validation covered the production environment, including:
 - Deployment completion
 
 Supporting Snowflake evidence includes:  
-![Database structure](docs/screenshots/snowflake-database.PNG)
+![Database structure](screenshots/snowflake-database.PNG)
 
-![Dynamic Table](docs/screenshots/snowflake-dynamic-table.PNG)
+![Dynamic Table](screenshots/snowflake-dynamic-table.PNG)
 
-![Role configuration](docs/screenshots/snowflake-roles.PNG)
+![Role configuration](screenshots/snowflake-roles.PNG)
 
 ---
 
