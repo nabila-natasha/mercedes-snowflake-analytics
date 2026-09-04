@@ -180,10 +180,10 @@ business-ready analytical structures.
 ```
 
 The complete architecture is documented in:
-docs/architecture.md
+`docs/architecture.md`
 
-Architecture diagram:  
-docs/screenshots/architecture.png
+Architecture diagram:
+`docs/screenshots/architecture.PNG`
 
 ---
 
@@ -243,7 +243,7 @@ The Power BI semantic model provides the reporting layer used by the
 analytical dashboards.
 
 See:  
-docs/data-model.md
+`docs/data-model.md`
 
 ---
 
@@ -290,7 +290,7 @@ The final model is a tuned Random Forest regression model.
 - Train/Test R² gap: 0.013
 
 More detail is available in:  
-docs/ml-model.md
+`docs/ml-model.md`
 
 ---
 
@@ -343,7 +343,7 @@ The dashboard provides:
  - Safety Technology Adoptions
 
 Dashboard screenshots are available under:  
-docs/screenshots/
+`docs/screenshots/`
 
 --- 
 
@@ -377,7 +377,7 @@ The workflow includes:
 The final project version successfully completed both CI and CD.
 
 See:  
-docs/validation.md
+`docs/validation.md`
 
 --- 
 
@@ -425,7 +425,7 @@ Both GitHub Actions workflows completed successfully for the final
 implementation.
 
 Validation evidence and methodology are documented in:  
-docs/validation.md
+`docs/validation.md`
 
 --- 
 
