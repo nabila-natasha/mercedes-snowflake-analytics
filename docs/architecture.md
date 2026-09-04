@@ -208,7 +208,7 @@ Focuses on:
 - Residual analysis
 
 #### Vehicle Safety
-- Focuses on:
+Focuses on:
 - Complaints
 - Recalls
 - Investigations
