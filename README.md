@@ -98,7 +98,6 @@ including:
 The objective is to provide a consolidated view of vehicle safety
 patterns across models and model years.
 
-
 ---
 
 ## 3. Key Results
@@ -124,7 +123,6 @@ absolute error.
 The relatively small difference between train MAE (5.11 seconds) and
 test MAE (5.30 seconds) indicates that the final model does not show a
 large train/test performance gap.
-
 
 ---
 
@@ -187,7 +185,6 @@ docs/architecture.md
 Architecture diagram:  
 docs/screenshots/architecture.png
 
-
 ---
 
 ## 6. Snowflake Data Architecture
@@ -232,7 +229,6 @@ Snowflake Dynamic Tables are used where appropriate to maintain
 transformed analytical data automatically based on the defined
 refresh/target-lag configuration.
 
-
 ---
 
 ## 7. Analytical Data Model
@@ -248,7 +244,6 @@ analytical dashboards.
 
 See:  
 docs/data-model.md
-
 
 ---
 
@@ -297,7 +292,6 @@ The final model is a tuned Random Forest regression model.
 More detail is available in:  
 docs/ml-model.md
 
-
 ---
 
 ## 9. Power BI Analytics
@@ -326,10 +320,15 @@ The dashboard provides:
 - Feature Importance
 - Train/Test model comparison
 
-The residual classification uses a ±10-second tolerance band:
+Residuals are defined as:  
+**Residual = Actual Test Time - Predicted Test Time**
+
+Therefore:
 - Residual > +10 s → Under-predicted
-- Residual between -10 s and +10 s → Close to Actual
+- -10 s ≤ Residual ≤ +10 s → Close to Actual
 - Residual < -10 s → Over-predicted
+The ±10-second threshold is an analytical tolerance selected for
+dashboard interpretation.
 
 ### Vehicle Safety Analytics
 The dashboard provides:
@@ -380,7 +379,6 @@ The final project version successfully completed both CI and CD.
 See:  
 docs/validation.md
 
-
 --- 
 
 ## 11. Reproducibility
@@ -399,7 +397,6 @@ Credentials and secrets are not stored in the repository.
 Snowflake credentials required by automated workflows are supplied
 through GitHub repository secrets and environment configuration.
 
-
 --- 
 
 ## 12. Data Governance and Security
@@ -412,7 +409,6 @@ The project follows several basic production-oriented practices:
 - Production deployment is automated
 - Production validation is executed after deployment
 - Data ingestion is separated from transformation logic
-
 
 --- 
 
@@ -431,7 +427,6 @@ implementation.
 Validation evidence and methodology are documented in:  
 docs/validation.md
 
-
 --- 
 
 ## 14. Project Limitations
@@ -447,7 +442,6 @@ Limitations include:
 - No enterprise-scale model monitoring
 - Power BI is used for analytical reporting rather than enterprise
 cloud deployment
-
 
 --- 
 
@@ -482,4 +476,3 @@ The final implementation includes:
 - Automated CD
 - Production validation
 - Technical documentation
-
