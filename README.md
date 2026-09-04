@@ -6,29 +6,35 @@
 An end-to-end automotive data engineering, analytics and machine learning
 platform built using Snowflake, Python, SQL, Power BI and GitHub Actions.
 
-The project demonstrates how raw automotive datasets can be transformed
-into production-ready analytical data products and machine learning
-insights through a cloud data platform with automated CI/CD validation
-and deployment.
+The project demonstrates how multiple automotive datasets can be ingested,
+transformed and modelled into analytical data products, machine learning
+insights and interactive Power BI dashboards through a production-style
+cloud data platform with automated CI/CD validation and deployment.
 
 ---
 
 ## 1. Project Overview
 
-This project combines three analytical areas:
+This project brings together three analytical use cases on a common
+data platform:
 
-1. Mercedes-Benz Used Car analytics
+1. Mercedes-Benz used vehicle analytics
 2. Manufacturing test-time machine learning
-3. Vehicle Safety analytics
+3. Vehicle safety analytics
 
-The platform uses Snowflake as the cloud data warehouse and analytical
-platform, Python for ingestion and machine learning, SQL for data
-transformation and validation, Power BI for business intelligence, and
-GitHub Actions for automated CI/CD.
+The platform uses:
 
-The project was designed to demonstrate an end-to-end production-style
-data workflow rather than a standalone dashboard or machine learning
-notebook.
+- Snowflake as the cloud data platform
+- Python for data ingestion and machine learning
+- SQL for transformation, analytical modelling and validation
+- Power BI for business intelligence and reporting
+- GitHub for version control
+- GitHub Actions for continuous integration and deployment
+- pytest for automated testing
+
+The project was designed to demonstrate an end-to-end data engineering
+workflow rather than a standalone dashboard, SQL exercise or machine
+learning notebook.
 
 ---
 
@@ -36,9 +42,25 @@ notebook.
 
 ### Used Vehicle Analytics
 
-Used vehicle data is incorporated into the analytical platform to support
-vehicle and market-level analysis.
+The used vehicle analysis provides a market-oriented view of Mercedes-Benz
+vehicles using attributes such as model, year, price, mileage, fuel type
+and MPG.
 
+The dashboard supports analysis of:
+
+- Total vehicles
+- Average vehicle price
+- Average MPG
+- Average mileage
+- Price by vehicle year
+- Vehicle count by model
+- Price versus mileage
+- Average and median price by fuel type
+
+The objective is to understand pricing patterns, vehicle characteristics
+and potential relationships between mileage, age and price.
+
+---
 
 ### Manufacturing Analytics
 
@@ -49,15 +71,21 @@ The objective is to:
 
 - Establish a naive baseline
 - Train a Random Forest regression model
-- Tune model hyperparameters
+- Perform model tuning
 - Evaluate train/test performance
-- Identify important manufacturing features
+- Identify important predictive features
+- Analyse prediction residuals
 - Compare model performance against the baseline
 
+The final model is intended to demonstrate how machine learning can be
+used to support manufacturing performance analysis.
+
+---
 
 ### Vehicle Safety Analytics
 
-The safety analytics component explores:
+The safety analytics component consolidates vehicle safety information
+including:
 
 - Vehicle configurations
 - Model years
@@ -68,7 +96,7 @@ The safety analytics component explores:
 - Crash ratings
 
 The objective is to provide a consolidated view of vehicle safety
-performance and identify patterns across model years and vehicle models.
+patterns across models and model years.
 
 
 ---
@@ -77,21 +105,24 @@ performance and identify patterns across model years and vehicle models.
 
 ### Manufacturing Machine Learning Model
 
-The final tuned Random Forest model achieved:
+The final tuned Random Forest regression model achieved:
 
 | Metric | Result |
 |---|---:|
-| Test MAE | 5.30 seconds |
+| Baseline Train MAE | 10.08 s |
+| Baseline Test MAE | 10.14 s |
+| Tuned Model Train MAE | 5.11 s |
+| Tuned Model Test MAE | 5.30 s |
 | Test R² | 0.59 |
-| Baseline Test MAE | 10.14 seconds |
-| MAE Improvement | 47.7% |
-| Train MAE | 5.11 seconds |
+| MAE Improvement vs Baseline | 47.7% |
+| Train/Test R² Gap | 0.013 |
 
-The tuned model reduced test mean absolute error (MAE) by approximately 47.7%
-compared with the naive baseline.
+The final model reduced test MAE from 10.14 seconds for the naive
+baseline to 5.30 seconds, representing a 47.7% reduction in mean
+absolute error.
 
-The relatively small difference between training MAE (5.11 seconds) and
-test MAE (5.30 seconds) indicates that the final model does not exhibit a
+The relatively small difference between train MAE (5.11 seconds) and
+test MAE (5.30 seconds) indicates that the final model does not show a
 large train/test performance gap.
 
 
@@ -103,47 +134,51 @@ large train/test performance gap.
 |---|---|
 | Cloud Data Platform | Snowflake |
 | Data Ingestion | Python |
-| Transformation | Snowflake SQL |
+| Data Transformation | Snowflake SQL |
 | Data Modelling | Star Schema |
 | Machine Learning | Python / scikit-learn |
-| Machine Learning Model | Random Forest Regression |
+| ML Algorithm | Random Forest Regression |
 | Hyperparameter Tuning | Randomized Search |
-| BI / Visualization | Power BI |
+| Business Intelligence | Power BI |
 | Version Control | Git / GitHub |
 | CI/CD | GitHub Actions |
-| Testing | Python / pytest |
-| Architecture Documentation | draw.io |
+| Automated Testing | pytest |
+| Architecture Design | draw.io |
 
 ---
 
 ## 5. Architecture
 
-The project follows a layered data architecture:
+The platform follows a layered data architecture in which source data
+flows through Python ingestion into Snowflake and is transformed into
+business-ready analytical structures.
 
 ```text
-External Data Sources
-        |
-        v
-Python Ingestion
-        |
-        v
-Snowflake RAW
-        |
-        v
-Snowflake SILVER
-        |
-        v
-Snowflake GOLD
-        |
-        +--------------------+
-        |                    |
-        v                    v
-     Power BI          Manufacturing ML Analytics
-        |                    |
-        v                    v
-Used-Car &  Safety       Test-Time
-Dashboards              Prediction
-
+                         DATA SOURCES
+                              |
+                              v
+                     PYTHON INGESTION
+                              |
+                              v
+                    +-------------------+
+                    |     SNOWFLAKE     |
+                    |                   |
+                    |       RAW         |
+                    |        |          |
+                    |      SILVER       |
+                    |        |          |
+                    |       GOLD        |
+                    |                   |
+                    |      AUDIT        |
+                    +---------+---------+
+                              |
+                 +------------+------------+
+                 |                         |
+                 v                         v
+             POWER BI              MACHINE LEARNING
+                 |                         |
+                 v                         v
+        Analytical Dashboards      Test-Time Prediction
 ```
 
 The complete architecture is documented in:
@@ -155,24 +190,29 @@ docs/screenshots/architecture.png
 
 ---
 
-## 6. Data Architecture
+## 6. Snowflake Data Architecture
 
-The Snowflake environment uses a medallion-style architecture:
+The Snowflake environment follows a medallion-style architecture.
 
 ```text
-RAW
- |
- | ingestion / standardisation
- v
-SILVER
- |
- | business transformation
- v
-GOLD
- |
- +----> Power BI
- |
- +----> Analytical / ML workflows
+                    MERCEDES_PROD
+                         |
+          +--------------+--------------+
+          |              |              |
+          v              v              v
+         RAW           SILVER          GOLD
+          |              |              |
+          |              |              +--> Analytics
+          |              |              +--> Power BI
+          |              |
+          |              +--> Cleaned /
+          |                   Standardised Data
+          |
+          +--> Source-Aligned Data
+
+                         |
+                         v
+                       AUDIT
 
 ```
 
@@ -180,27 +220,33 @@ GOLD
 Contains source data loaded into Snowflake with minimal transformation.
 
 ### SILVER
-Contains cleaned, standardised and transformed data suitable for analytical processing.
+Contains cleaned, standardised and transformed data prepared for downstream analytical processing.
 
 ### GOLD
-Contains business-ready analytical structures consumed by downstream analytics and reporting.
+Contains business-ready analytical structures used by Power BI and downstream analytical workflows.
 
 ### AUDIT
-Contains validation and operational audit information used to support data quality and production monitoring.
+Contains validation and operational information supporting data quality and production validation.
+
+Snowflake Dynamic Tables are used where appropriate to maintain
+transformed analytical data automatically based on the defined
+refresh/target-lag configuration.
 
 
 ---
 
 ## 7. Analytical Data Model
 
-The analytical layer follows a star-schema approach where measurable
-business events are represented by fact tables and descriptive
-attributes are represented by dimension tables.
+The analytical layer uses a star-schema approach.
 
-The model is consumed by Power BI to provide interactive analytical
-reporting.
+Fact structures contain measurable business events and metrics, while
+dimension structures provide descriptive context for filtering,
+grouping and analysis.
 
-The Power BI data model is documented in:
+The Power BI semantic model provides the reporting layer used by the
+analytical dashboards.
+
+See:
 docs/data-model.md
 
 
@@ -208,29 +254,47 @@ docs/data-model.md
 
 ## 8. Machine Learning
 
-The manufacturing machine learning pipeline predicts manufacturing test time.
+The manufacturing machine learning workflow follows:
 
-### Modelling approach
+```text
+Manufacturing Dataset
+        |
+        v
+Data Preparation
+        |
+        v
+Train / Test Split
+        |
+        v
+Naive Baseline
+        |
+        v
+Random Forest
+        |
+        v
+Model Tuning
+        |
+        v
+Final Tuned Model
+        |
+        +--------> Feature Importance
+        |
+        +--------> Residual Analysis
+        |
+        v
+Power BI
 
-The workflow consists of:
-
-1. Data preparation
-2. Train/test split
-3. Naive baseline
-4. Random Forest regression
-5. Hand-tuned model evaluation
-6. Hyperparameter tuning
-7. Final model evaluation
-8. Feature importance analysis
-9. Residual analysis
-10. Final model
+```
 
 The final model is a tuned Random Forest regression model.
-The model achieved:
 
-Test MAE: 5.30 seconds
-Test R²: 0.59
-MAE improvement versus baseline: 47.7%
+#### Final performance
+- Test MAE: 5.30 seconds
+- Test R²: 0.59
+- MAE improvement versus baseline: 47.7%
+- Train/Test R² gap: 0.013
+
+More detail is available in:
 
 More detail is available in:
 docs/ml-model.md
@@ -253,15 +317,21 @@ The project contains three main analytical dashboards.
  - Price vs Mileage
  - Average & Median Price by Fuel Type
 
- ### Manufacturing ML Performance
- The dashboard provides:
- - Test MAE
- - Test R²
- - MAE Improvement vs Baseline
- - Train/test R² Gap
- - Actual vs Predicted Test Time
- - Feature Importance
- - Train/test model comparison
+### Manufacturing ML Performance
+The dashboard provides:
+- Test MAE
+- Test R²
+- MAE Improvement vs Baseline
+- Train/Test R² Gap
+- Actual vs Predicted Test Time
+- Residual classification
+- Feature Importance
+- Train/Test model comparison
+
+The residual classification uses a ±10-second tolerance band:
+- Residual > +10 s → Under-predicted
+- Residual between -10 s and +10 s → Close to Actual
+- Residual < -10 s → Over-predicted
 
 ### Vehicle Safety Analytics
 The dashboard provides:
@@ -282,26 +352,34 @@ docs/screenshots/
 
 ## 10. CI/CD
 
-GitHub Actions automates validation and production deployment.
+GitHub Actions automates testing, validation and production deployment.
 
 #### Continuous Integration
-The CI workflow validates code changes before they are considered production-ready.
+The CI workflow validates project changes through automated checks.
 
-The workflow includes automated testing and Snowflake-related validation.
+The workflow includes:
+1. Repository checkout
+2. Python environment setup
+3. Dependency installation
+4. Automated testing
+5. Project validation
+6. Snowflake-related validation where configured
 
 #### Continuous Deployment
-The CD workflow automates the production deployment process, including:
+The CD workflow automates the production deployment process.
 
+The workflow includes:
 1. Source data ingestion
-2. Loading data into Snowflake
-3. Production database object deployment
-4. Transformation layer deployment
-5. Production validation
+2. Used vehicle data loading
+3. Manufacturing data loading
+4. NHTSA data loading
+5. Snowflake production deployment
+6. Transformation and analytical object deployment
+7. Production validation
 
-Both CI and CD workflows completed successfully for the final project
-version.
+The final project version successfully completed both CI and CD.
 
-Detailed documentation:
+See:
 docs/validation.md
 
 
@@ -309,14 +387,19 @@ docs/validation.md
 
 ## 11. Reproducibility
 
-The project is designed so that the main data engineering workflow can
-be reproduced through the Python scripts, Snowflake SQL deployment
-scripts and GitHub Actions workflows.
+The project is designed around reproducible data engineering and
+analytical workflows.
+
+The main components can be reproduced using:
+- Python ingestion scripts
+- Snowflake SQL setup and deployment scripts
+- Automated validation tests
+- GitHub Actions CI/CD workflows
 
 Credentials and secrets are not stored in the repository.
 
-Snowflake credentials required by GitHub Actions are supplied through
-GitHub repository secrets / environment configuration.
+Snowflake credentials required by automated workflows are supplied
+through GitHub repository secrets and environment configuration.
 
 
 --- 
@@ -326,10 +409,11 @@ GitHub repository secrets / environment configuration.
 The project follows several basic production-oriented practices:
 - Credentials are not committed to Git
 - Snowflake access is managed through roles
-- Development and analytical responsibilities are separated
+- Engineering and analytical access are separated
+- RAW, SILVER, GOLD and AUDIT responsibilities are separated
 - Production deployment is automated
-- Validation is executed as part of the deployment workflow
-- Raw and analytical data are separated into different schemas
+- Production validation is executed after deployment
+- Data ingestion is separated from transformation logic
 
 
 --- 
@@ -343,7 +427,10 @@ The final repository was validated through:
 - Production data validation
 - Power BI dashboard verification
 
-CI and CD execution evidence is documented in:
+Both GitHub Actions workflows completed successfully for the final
+implementation.
+
+Validation evidence and methodology are documented in:
 docs/validation.md
 
 
@@ -351,16 +438,17 @@ docs/validation.md
 
 ## 14. Project Limitations
 
-This project is a portfolio implementation and therefore does not
-represent a production Mercedes-Benz enterprise environment.
+This is a portfolio implementation and does not represent the internal
+Mercedes-Benz enterprise data environment.
 
 Limitations include:
-- Public / externally available datasets
+- Use of publicly available or externally sourced datasets
 - Limited historical and operational context
 - No real-time manufacturing data stream
-- ML performance depends on the available training dataset
-- Power BI is used primarily for analytical reporting rather than
-enterprise deployment
+- Machine learning performance depends on the available dataset
+- No enterprise-scale model monitoring
+- Power BI is used for analytical reporting rather than enterprise
+cloud deployment
 
 
 --- 
@@ -382,7 +470,7 @@ Potential extensions include:
 
 ## 16. Project Status
 
-Status: Completed
+#### Status: Completed
 
 The final implementation includes:
 - Snowflake data platform
