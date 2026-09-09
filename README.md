@@ -133,7 +133,7 @@ large train/test performance gap.
 | Cloud Data Platform | Snowflake |
 | Data Ingestion | Python |
 | Data Transformation | Snowflake SQL |
-| Data Modelling | Star Schema |
+| Data Modelling | Fact Constellation |
 | Machine Learning | Python / scikit-learn |
 | ML Algorithm | Random Forest Regression |
 | Hyperparameter Tuning | Randomized Search |
@@ -233,7 +233,7 @@ refresh/target-lag configuration.
 
 ## 7. Analytical Data Model
 
-The analytical layer uses a star-schema approach.
+The analytical layer uses a fact constellation approach.
 
 Fact structures contain measurable business events and metrics, while
 dimension structures provide descriptive context for filtering,
