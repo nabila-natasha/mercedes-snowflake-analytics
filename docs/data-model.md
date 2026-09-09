@@ -481,7 +481,7 @@ The model contains:
 
 The screenshot below documents the implemented Power BI semantic model.
 
-![Power BI Semantic Model](./screenshots/data-model.png)
+![Power BI Semantic Model](./screenshots/data-model.png.PNG)
 
 > **Note:** The exact filename must match the file committed under
 > `docs/screenshots/`. GitHub paths are case-sensitive.
